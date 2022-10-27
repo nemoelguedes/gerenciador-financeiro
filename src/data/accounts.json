@@ -1,0 +1,14 @@
+[
+  {
+    "bank" : "Nubank",
+    "id" : "nubank",
+    "person" :  "Usuário55",
+    "image" : ""
+  },
+  {
+    "bank" : "Itaú",
+    "id" : "itau",
+    "person" :  "Usuário88",
+    "image" : ""
+  }
+]

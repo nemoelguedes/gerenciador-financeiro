@@ -1,0 +1,8 @@
+[
+  {
+    "incomes" : ["salário", "empréstimo", "rendimentos", "benefício", "outros"]
+  },
+  {
+    "expenses" : ["casa", "dívida", "educação", "transporte","digital", "vestuário", "presentes", "saúde", "supermercado", "restaurante", "eletrônicos","lazer", "serviços", "viagem", "outros" ]
+  }
+]

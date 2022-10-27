@@ -1,0 +1,20 @@
+[
+  {
+    "date" : "26/10/2022",
+    "description" : "Salário",
+    "value" : 100,
+    "category" : "salário",
+    "account" : "nubank",
+    "paid" : true,
+    "id" : "income1"
+  },
+  {
+    "date" : "27/10/2022",
+    "description" : "Renda Extra",
+    "value" : 54.35,
+    "category" : "rendimento",
+    "account" : "itau",
+    "paid" : false,
+    "id" : "income2"
+  }
+]
