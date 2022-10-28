@@ -1,0 +1,239 @@
+@import "../../styles/Index.module.scss";
+
+.expense {
+  border-bottom: 1px solid #d3d3d3;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  min-height: 40px;
+  align-items: center;
+  font-size: 12px;
+
+  display: flex;
+  justify-content:flex-start;
+  align-items:flex-start;
+  flex-wrap: wrap;
+
+
+}
+
+.content__block1{
+
+  width: 30%;
+
+  @media screen and (max-width: 700px) {
+    width: 25%;
+  }
+
+}
+
+.content__block2{
+
+  width: 35%;
+
+  @media screen and (max-width: 700px) {
+    width: 40%;
+  }
+  
+}
+
+.content__block3{
+
+  width: 20%;
+
+  @media screen and (max-width: 700px) {
+    width: 20%;
+  }
+  
+}
+
+.content__block4{
+
+  width: 15%;
+
+  @media screen and (max-width: 700px) {
+    width: 15%;
+  }
+  
+}
+
+
+.content__date{
+  margin: 0;
+  width: 35%;
+  align-items: center;
+  min-height:40px;
+  text-align: left;
+  float: left;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
+  
+}
+
+.content__category{
+  margin: 0;
+  width: 65%;
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 600;
+  min-height:40px;
+  text-transform: uppercase;
+  float: left;
+  
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
+
+}
+
+.content__description{
+  margin: 0;
+  width: 70%;
+  min-height:40px;
+  float: left;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
+}
+
+.content__account{
+  margin: 0;
+  width: 30%;
+  font-size: 10px;
+  min-height:40px;
+  text-transform: uppercase;
+  color: #7e7e7e;
+  float: left;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
+  
+}
+
+.content__amount{
+  margin: 0;
+  width: 70%;
+  font-weight: 600;
+  color: $color4;
+  min-height:40px;
+  float: left;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
+}
+
+.content__times{
+  margin: 0;
+  width: 20%;
+  min-height:40px;
+  float: left;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  text-transform: uppercase;
+  color: #7e7e7e;
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
+}
+
+.content__paid{
+  margin: 0;
+  width: 40%;
+  min-height:40px;
+  float: left;
+  
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
+}
+
+.content__action{
+  margin: 0;
+  width: 60%;
+  min-height:40px;
+  text-align: right;
+  float: left;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
+}
+
+
+.icon{
+  width: 10px;
+  height: 10px;
+  color: $color4;
+}
+
+.icon__paid {
+  color:  $color1;
+  transition: 2s;
+  height: 20px;
+  width: 20px;
+}
+
+.icon__notPaid {
+  color:  $color4;
+  transition: 2s;
+  height: 20px;
+  width: 20px;
+}
+
+.icon__action {
+  color:  #7e7e7e;
+  height: 15px;
+  width: 15px;
+  margin-right: 5px;
+}
+
+.icon__date{
+  width: 15px;
+  margin-right: 5px;
+  color: $color2;
+}
+
+.icon__category{
+  width: 15px;
+  margin-right: 5px;
+  color: $color2;
+}

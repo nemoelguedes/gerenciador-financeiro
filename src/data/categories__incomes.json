@@ -1,0 +1,22 @@
+[
+  {
+    "category" : "salário",
+    "icon" : ""
+  },
+  {
+    "category" : "empréstimo",
+    "icon" : ""
+  },
+  {
+    "category" : "rendimentos",
+    "icon" : ""
+  },
+  {
+    "category" : "benefício",
+    "icon" : ""
+  },
+  {
+    "category" : "outros",
+    "icon" : ""
+  }
+]
