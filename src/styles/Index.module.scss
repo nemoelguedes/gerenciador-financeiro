@@ -13,3 +13,22 @@ $color2 : #02735E;
 $color3 : #014040;
 $color4 : #F27405;
 $color5 : #731702;
+$color6 : #FF2948;
+
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 25px;
+  
+  @media screen and (max-width: 700px) {
+    font-size: 20px;
+  }
+}
+
+h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+
+  @media screen and (max-width: 700px) {
+    font-size: 12px;
+  }
+}

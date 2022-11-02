@@ -1,0 +1,176 @@
+@import "../../styles/Index.module.scss";
+
+.form{
+  width: 90%;
+  margin: auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 32px;
+
+  @media screen and (max-width: 700px) {
+    width: 90%;
+    padding: 5%;    
+  }
+}
+
+label{
+  width: 100%;
+  text-transform: uppercase;
+  font-size: 12px;
+  transition: 0.2s;
+  background-color: #f1f1f1;
+  margin-left: 16px;
+  margin-right: 16px;
+
+  @media screen and (max-width: 700px) {
+    font-size: 12px;
+  }
+
+}
+
+input{
+  border: 0;
+  border: 2px #b8b8b8 solid;
+  padding: 8px;
+  width: 100%;
+  background: transparent;
+  border-radius: 16px;
+  font-size: 14px;
+}
+
+input:hover{
+  border: $color1 3px solid;
+}
+
+input:focus{
+  outline: 0;
+  border: $color1 3px solid;
+  background: transparent;
+}
+
+.button__submit{
+  padding: 8px;
+  width: 50%;
+  margin: auto;
+  border-radius: 16px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  transition: 1s;
+  margin-bottom: 8px;
+
+  
+  @media screen and (max-width: 700px) {
+    width: 70%;
+    font-size: 12px;
+  }
+}
+
+.button__submit--expense{
+  background-color: $color6;
+  border: 2px $color6 solid;
+}
+
+.button__submit--incomes{
+  background-color: $color1;
+  border: 2px $color1 solid;
+}
+
+.button__submit--expense:hover{
+  border: $color6 3px solid;
+  background-color: transparent;
+  color: $color6;
+  transform: scale(1.1);
+  transition: 1s;
+}
+
+.button__submit--incomes:hover{
+  border: $color1 3px solid;
+  background-color: transparent;
+  color: $color1;
+  transform: scale(1.1);
+  transition: 1s;
+}
+
+
+
+.selectTransaction{
+  padding: 8px;
+  width: 50%;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 1s;
+
+  @media screen and (max-width: 700px) {
+    font-size: 10px;
+  }
+}
+
+.selectTransaction__expense{
+  border: 2px $color6 solid;
+  color: $color6;
+}
+
+.selectTransaction__incomes{
+  border: 2px $color1 solid;
+  color: $color1;
+}
+
+.selectTransaction:hover{
+  color: #fff;
+  transform: scale(1.1);
+  transition: 1s;
+}
+
+.selectTransaction__expense:hover{
+  border: $color6 3px solid;
+  background-color: $color6;
+}
+
+.selectTransaction__incomes:hover{
+  border: $color1 3px solid;
+  background-color: $color1;
+}
+
+.selectTransaction__focusexpense{
+  border: $color6 3px solid;
+  background-color: $color6;
+  color: #fff;
+  transform: scale(1);
+  transition: 1s;
+}
+
+.selectTransaction__focusincomes{
+  border: $color1 3px solid;
+  background-color: $color1;
+  color: #fff;
+  transform: scale(1);
+  transition: 1s;
+}
+
+.selectTransaction__div{
+  width: 100%;
+}
+
+.title{
+  width: 100%;
+  margin-top: 32px;
+  margin-bottom: 32px;
+  
+  @media screen and (max-width: 700px) {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+}
+
+
+.icon{
+  width: 15px;
+  height: 15px;
+  margin-right: 8px;
+  margin-bottom: -2px;
+}

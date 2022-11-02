@@ -1,6 +1,6 @@
 @import "../../styles/Index.module.scss";
 
-.expense {
+.transaction {
   border-bottom: 1px solid #d3d3d3;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -149,7 +149,7 @@
   }
 }
 
-.content__times{
+.content__reccurence{
   margin: 0;
   width: 20%;
   min-height:40px;

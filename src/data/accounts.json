@@ -10,5 +10,23 @@
     "id" : "itau",
     "person" :  "Usuário88",
     "image" : ""
+  },
+  {
+    "bank" : "Poupança",
+    "id" : "poupanca",
+    "person" :  "Usuário55",
+    "image" : ""
+  },
+  {
+    "bank" : "Dinheiro",
+    "id" : "dinheiro",
+    "person" :  "Usuário88",
+    "image" : ""
+  },
+  {
+    "bank" : "Cartão de Crédito",
+    "id" : "cartao_de_credito",
+    "person" :  "Usuário88",
+    "image" : ""
   }
 ]

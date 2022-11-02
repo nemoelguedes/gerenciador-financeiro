@@ -1,0 +1,15 @@
+@import "../../styles/Index.module.scss";
+
+.icon__paid {
+  color:  $color1;
+  transition: 2s;
+  height: 35px;
+  width: 35px;
+}
+
+.icon__notPaid {
+  color:  $color6;
+  transition: 2s;
+  height: 35px;
+  width: 35px;
+}

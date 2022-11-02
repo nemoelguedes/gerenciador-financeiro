@@ -1,6 +1,6 @@
-import SingleExpense from "components/singleExpense";
+import SingleTransaction from "components/singleTransaction";
 import expenses from "../../data/expenses.json";
-import style from "./Expenses.module.scss";
+import style from "./Transaction.module.scss";
 
 export default function Transactions() {
 
@@ -8,7 +8,7 @@ export default function Transactions() {
     <div>
       <table className={style.expenses}>
         {expenses.map(
-          m => <SingleExpense date={m.date} description={m.description} amount={m.amount} category={m.category} account={m.account} paid={m.paid} id={m.id} times={m.times} />
+          m => <SingleTransaction date={m.date} description={m.description} amount={m.amount} category={m.category} account={m.account} paid={m.paid} id={m.id} reccurence={m.reccurence} transaction={m.transaction} />
 
         )}
       </table>

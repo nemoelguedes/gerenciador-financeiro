@@ -1,0 +1,10 @@
+[
+  {
+    "reccurence" : "não",
+    "icon" : "assets/icons/xis.svg"
+  },
+  {
+    "reccurence" : "parcelado",
+    "icon" : "assets/icons/beneficio.svg"
+  }
+]

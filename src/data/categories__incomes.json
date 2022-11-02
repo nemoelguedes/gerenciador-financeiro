@@ -1,22 +1,18 @@
 [
   {
     "category" : "salário",
-    "icon" : ""
+    "icon" : "assets/icons/salario.svg"
   },
   {
     "category" : "empréstimo",
-    "icon" : ""
+    "icon" : "assets/icons/emprestimo.svg"
   },
   {
     "category" : "rendimentos",
-    "icon" : ""
+    "icon" : "assets/icons/rendimentos.svg"
   },
   {
     "category" : "benefício",
-    "icon" : ""
-  },
-  {
-    "category" : "outros",
-    "icon" : ""
+    "icon" : "assets/icons/beneficio.svg"
   }
 ]

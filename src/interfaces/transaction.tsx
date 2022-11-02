@@ -1,4 +1,5 @@
-export type IExpense = {
+export default interface ITransaction {
+
   "date" : string,
   "description" : string,
   "amount" : number,
@@ -6,5 +7,7 @@ export type IExpense = {
   "account" : string,
   "paid" : boolean,
   "id" : string,
-  "times" : string
+  "reccurence" : string,
+  "transaction" : string,
+
 }

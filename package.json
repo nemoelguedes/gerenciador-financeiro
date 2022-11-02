@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "react-intl-currency-input": "^0.2.6",
     "sass": "^1.55.0",
     "typescript-plugin-css-modules": "^3.4.0"
   }
