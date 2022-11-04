@@ -63,6 +63,7 @@
   border-radius: 8px;
   border: 2px solid #b8b8b8;
   font-size: 12px;
+  background-color: #f8f8f8;
   text-transform: uppercase;
 
   @media screen and (max-width: 700px) {
@@ -98,4 +99,39 @@
   height: 12px;
   width: 12px;
   margin-bottom: -2px;
+}
+
+
+.labelAdd{
+  width: 100%;
+  text-transform: uppercase;
+  font-size: 12px;
+  transition: 0.2s;
+  margin-left: 16px;
+  margin-right: 16px;
+
+  @media screen and (max-width: 700px) {
+    font-size: 12px;
+  }
+
+}
+
+.inputAdd{
+  border: 0;
+  border: 2px #b8b8b8 solid;
+  padding: 8px;
+  width: 100%;
+  background: transparent;
+  border-radius: 16px;
+  font-size: 14px;
+}
+
+.inputAdd:hover{
+  border: $color1 3px solid;
+}
+
+.inputAdd:focus{
+  outline: 0;
+  border: $color1 3px solid;
+  background: transparent;
 }

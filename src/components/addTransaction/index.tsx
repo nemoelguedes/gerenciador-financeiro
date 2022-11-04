@@ -1,12 +1,16 @@
 import classNames from "classnames";
-import Categories from "components/categories";
-import { useReducer, useState } from "react";
+import Categories from "components/addTransaction/categories";
+import { useEffect, useReducer, useState } from "react";
 import style from "./Addtransaction.module.scss";
 import { FaArrowDown, FaArrowUp, FaPlusCircle } from "react-icons/fa";
-import Accounts from "components/accounts";
-import Reccurence from "components/reccurence";
-import Description from "components/description";
-import Paid from "components/paid";
+import { IoMdClose } from "react-icons/io";
+import Accounts from "components/addTransaction/accounts";
+import Reccurence from "components/addTransaction/reccurence";
+import Description from "components/addTransaction/description";
+import Paid from "components/addTransaction/paid";
+import DateAdd from "components/addTransaction/date";
+import Amount from "components/addTransaction/amount";
+import { v4 as uuidv4 } from "uuid";
 
 const today = new Date();
 const year = today.getFullYear();
@@ -16,11 +20,7 @@ const month = mo < 10 ? "0" + mo : mo;
 const day = da < 10 ? "0" + da : da;
 const initialDate = year + "-" + month + "-" + day;
 
-const initialAmount = "0,00";
-const initialMessage = true;
-
 const transactionState = {
-
   date: initialDate,
   amount: "0,00",
   reccurence: "não",
@@ -30,18 +30,22 @@ const transactionState = {
   category: "",
   account: "",
   description: "",
-  message: true,
-
 };
+
+const initialMessage = {
+  message: false,
+  messageAmount: true,
+  messageDescription: true,
+  messageCategory: true,
+  messageAccount: true,
+  messageReccurence: true,
+}
 
 const reducer = (state: any, action: any) => {
   switch (action.type) {
 
     case "date":
       return { ...state, date: action.payload };
-
-    case "reccurence":
-      return { ...state, reccurence: action.payload };
 
     case "account":
       return { ...state, account: action.payload };
@@ -58,161 +62,241 @@ const reducer = (state: any, action: any) => {
     case "paid":
       return { ...state, paid: !state.paid };
 
+    case "reccurence":
+      return { ...state, reccurence: action.payload };
+
     case "reccurenceValue":
       return { ...state, reccurenceValue: action.payload };
 
+    case "amount":
+      return { ...state, amount: action.payload };
+
+    case "reset":
+      return action.payload;
+
     default:
       throw new Error();
-
-
   }
 }
+
+
+const reducerMessage = (message: any, action: any) => {
+  switch (action.type) {
+
+    case "message":
+      return { ...message, message: action.payload };
+
+    case "messageAmount":
+      return { ...message, messageAmount: action.payload };
+
+    case "messageDescription":
+      return { ...message, messageDescription: action.payload };
+
+    case "messageCategory":
+      return { ...message, messageCategory: action.payload };
+
+    case "messageAccount":
+      return { ...message, messageAccount: action.payload };
+
+    case "messageReccurenceValue":
+      return { ...message, messageReccurenceValue: action.payload };
+
+    case "reset":
+      return action.payload;
+
+    default:
+      throw new Error();
+  }
+}
+
 
 
 export default function AddTransaction() {
 
   const [state, dispatch] = useReducer(reducer, transactionState);
-
-
-
-
-
-  // const [date, setDate] = useState(initialDate);
-  const [amount, setAmount] = useState(initialAmount);
-  const [message, setMessage] = useState(initialMessage);
-
-  console.log(state);
-
-  // VERIFY MONEY
-  function verifyMoney(r: any) {
-    const verify = r.replace(/[^\d]/g, "");
-    const verifyA = parseFloat(verify).toString();
-
-    if (verifyA.length === 0) {
-      const verifyB = "000";
-      addMoney(verifyB);
-    }
-    else if (verifyA.length === 1) {
-      const verifyB = "00" + verifyA;
-      addMoney(verifyB);
-    }
-    else if (verifyA.length === 2) {
-      const verifyB = "0" + verifyA;
-      addMoney(verifyB);
-    }
-    else {
-      const verifyB = verifyA;
-      addMoney(verifyB);
-    }
-  };
-
-  // ADDING MONEY
-  function addMoney(r: string) {
-    const verifyC = r.slice(0, r.length - 2) + "," + r.slice(r.length - 2, r.length);
-    setAmount(verifyC);
-  }
-
+  const [message, dispatchMessage] = useReducer(reducerMessage, initialMessage);
+  const [openPopup, setOpenPopup] = useState(false);
 
   // TYPE OF TRANSACTION
-  function selectTransaction(r: any) {
-    // setTransaction(r.target.name);
-    // setReccurenceValue(initialReccurenceValue);
-    // // setReccurence(initialReccurence);
-    // setAmount(initialAmount);
-    // // setDate(initialDate);
-    // setAccount(initialAccount);
-    // setCategory(initialCategory);
-    // setDescription(initialDescription);
-    // setMessage(initialMessage);
+  function selectTransaction(e: any) {
+    dispatch({ type: "reset", payload: transactionState });
+    dispatchMessage({ type: "reset", payload: initialMessage });
+    dispatch({ type: "transaction", payload: e.target.name });
   }
+
+  function close(e: any) {
+    dispatch({ type: "reset", payload: transactionState });
+    dispatchMessage({ type: "reset", payload: initialMessage });
+    setOpenPopup(false);
+
+  }
+
+  //MESSAGE
+  useEffect(() => {
+    if (state.amount === transactionState.amount) {
+      dispatchMessage({ type: "messageAmount", payload: true })
+    } else {
+      dispatchMessage({ type: "messageAmount", payload: false })
+    }
+
+    if (state.description === transactionState.description) {
+      dispatchMessage({ type: "messageDescription", payload: true })
+    } else {
+      dispatchMessage({ type: "messageDescription", payload: false })
+    }
+
+    if (state.category === transactionState.category) {
+      dispatchMessage({ type: "messageCategory", payload: true })
+    } else {
+      dispatchMessage({ type: "messageCategory", payload: false })
+    }
+
+    if (state.account === transactionState.account) {
+      dispatchMessage({ type: "messageAccount", payload: true })
+    } else {
+      dispatchMessage({ type: "messageAccount", payload: false })
+    }
+
+    if (state.reccurenceValue === transactionState.reccurenceValue) {
+      dispatchMessage({ type: "messageReccurenceValue", payload: true })
+    } else {
+      dispatchMessage({ type: "messageReccurenceValue", payload: false })
+    }
+  }, [state]);
+
+  // RECCURENCE
+  const quantasParcelas = parseInt(state.reccurenceValue);
+  console.log(quantasParcelas);
 
   //SUBMIT
   function submitTransaction(r: any) {
     r.preventDefault();
 
-    // if (amount == "0,00" || description == "" || category == "" || account == "") {
-    //   setMessage(false);
-    //   return;
-    // }
+    if (state.amount === "0,00" || state.description === "" || state.category === "" || state.account === "") {
+      dispatchMessage({ type: "message", payload: true });
+      return;
+    } else {
+      for (let i = 0; i < quantasParcelas; i++) {
+
+        // GET DATE FROM LOCALSTORAGE
+        const dataLocalStorage = JSON.parse(localStorage.transactions);
 
 
+        console.log("parcela", i + 1);
+
+        // DATA TO LOCALSTORAGE
+        const dataTransactionToSave = {
+          "date": state.date,
+          "description": state.description,
+          "amount": state.amount,
+          "category": state.category,
+          "account": state.account,
+          "paid": `${state.paid}`,
+          "id": uuidv4() + i,
+          "reccurence": state.reccurence,
+          "reccurenceValue": `${i + 1}/${quantasParcelas}`,
+          "transaction": state.transaction,
+        }
+
+        const saveOnLocalStorage = [...dataLocalStorage, dataTransactionToSave];
+        console.log(saveOnLocalStorage);
+
+        localStorage.setItem("transactions", JSON.stringify(saveOnLocalStorage));
+      };
+
+      window.dispatchEvent(new Event("storage"));
+      dispatch({ type: "reset", payload: transactionState });
+      dispatchMessage({ type: "reset", payload: initialMessage });
+      setOpenPopup(false);
+    }
   }
 
   return (
     <div>
+      <div className={style.addTransaction__div}>
+        <button className={style.addTransaction__button} type="button" onClick={(r: any) => setOpenPopup(true)}><FaPlusCircle className={style.icon__addTransaction} /> Adicionar Transação</button>
+      </div>
 
-      <form className={style.form} onSubmit={submitTransaction}>
+      {openPopup === true ?
 
-        {/* TRANSACTION */}
-        <div className={style.selectTransaction__div}>
-          <button type="button" name="expense" className={classNames({
-            [style.selectTransaction]: true,
-            [style.selectTransaction__expense]: true,
-            [state.transaction === "expense" ? style.selectTransaction__focusexpense : ""]: true,
-          })} onClick={selectTransaction}>
-            <FaArrowDown className={style.icon} /> DESPESA
-          </button>
-          <button type="button" name="incomes" className={classNames({
-            [style.selectTransaction]: true,
-            [style.selectTransaction__incomes]: true,
-            [state.transaction === "incomes" ? style.selectTransaction__focusincomes : ""]: true,
-          })} onClick={selectTransaction}>
-            <FaArrowUp className={style.icon} /> RENDA
-          </button>
+        <div className={style.containerPopup}>
+
+          <form className={style.form} onSubmit={submitTransaction}>
+
+
+
+            {/* TITLE */}
+            <div className={style.title}>
+              Adicionar {state.transaction === "expense" ? "Despesa" : "Renda"}
+            </div>
+
+            <div className={style.close}><IoMdClose className={style.icon__close} onClick={close} /></div>
+
+            <div className={style.description}>
+              Preencha os campos abaixo para adicionar uma nova {state.transaction === "expense" ? "Despesa" : "Renda"}.
+            </div>
+
+
+
+            {/* TRANSACTION */}
+            <div className={style.selectTransaction__div}>
+              <button type="button" name="expense" className={classNames({
+                [style.selectTransaction]: true,
+                [style.selectTransaction__expense]: true,
+                [state.transaction === "expense" ? style.selectTransaction__focusexpense : ""]: true,
+              })} onClick={selectTransaction}>
+                <FaArrowDown className={style.icon} /> DESPESA
+              </button>
+              <button type="button" name="incomes" className={classNames({
+                [style.selectTransaction]: true,
+                [style.selectTransaction__incomes]: true,
+                [state.transaction === "incomes" ? style.selectTransaction__focusincomes : ""]: true,
+              })} onClick={selectTransaction}>
+                <FaArrowUp className={style.icon} /> RENDA
+              </button>
+            </div>
+
+            {/* AMOUNT */}
+            <Amount amount={state.amount} transaction={state.transaction} handleAmount={(e: any) => dispatch({ type: "amount", payload: e })} message={message.message} messageAmount={message.messageAmount} />
+
+            {/* DATE */}
+            <DateAdd date={state.date} label={"Data:"} handleDate={(e: any) => dispatch({ type: "date", payload: e.target.value })} />
+
+
+            {/* PAID */}
+            <Paid paid={state.paid} transaction={state.transaction} handlePaid={(e: any) => dispatch({ type: "paid", payload: e.target.value })} />
+
+
+            {/* DESCRIPTION */}
+            <Description description={state.description} transaction={state.transaction} handleDescription={(e: any) => dispatch({ type: "description", payload: e.target.value })} message={message.message} messageDescription={message.messageDescription} />
+
+
+            {/* CATEGORY */}
+            <Categories category={state.category} transaction={state.transaction} handleCategory={(e: any) => dispatch({ type: "category", payload: e.target.name })} message={message.message} messageCategory={message.messageCategory} />
+
+
+            {/* ACCOUNT */}
+            <Accounts account={state.account} handleAccount={(e: any) => dispatch({ type: "account", payload: e.target.name })} message={message.message} messageAccount={message.messageAccount} />
+
+
+            {/* RECCURENCE */}
+            {state.transaction === "expense" ?
+              <Reccurence reccurence={state.reccurence} reccurenceValue={state.reccurenceValue} handleReccurence={(e: any) => dispatch({ type: "reccurence", payload: e.target.name })} handleReccurenceValue={(e: any) => dispatch({ type: "reccurenceValue", payload: e })} message={message.message} messageReccurenceValue={message.messageReccurenceValue} />
+              : ""}
+
+
+            {/* SUBMIT */}
+
+            <button type="submit" name="valor" className={classNames({
+              [style.button__submit]: true,
+              [state.transaction === "expense" ? style["button__submit--expense"] : style["button__submit--incomes"]]: true,
+            })}><FaPlusCircle className={style.icon} /> Adicionar {state.transaction === "expense" ? "Despesa" : "Renda"}</button>
+
+          </form>
+
         </div>
 
-        {/* TITLE */}
-        <div className={style.title}>
-          <h1>Adicionar {state.transaction === "expense" ? "Despesa" : "Renda"}</h1>
-          <h3>Preencha os campos abaixo para adicionar uma nova {state.transaction === "expense" ? "Despesa" : "Renda"}.</h3>
-        </div>
-
-        {/* AMOUNT */}
-        <div className={style.col40}>
-          <label htmlFor="amount">Valor:</label>
-          <input type="text" name="amount" value={"R$ " + amount} onChange={r => verifyMoney(r.target.value)} />
-          <span id="messageAmount" className={classNames({
-            [style.message]: true,
-            [style.hidden]: message,
-          })}>Adicione o valor da {state.transaction === "expense" ? "Despesa" : "Renda"}.</span>
-        </div>
-
-        {/* DATE */}
-        <div className={style.col40}>
-          <label htmlFor="date">Data:</label>
-          <input type="date" name="date" value={state.date} onChange={r => dispatch({ type: "date", payload: r.target.value })} />
-        </div>
-
-        {/* PAID */}
-        <Paid paid={state.paid} transaction={state.transaction} handlePaid={(e: any) => dispatch({ type: "paid", payload: e.target.value })} />
-
-
-        {/* DESCRIPTION */}
-        <Description description={state.description} transaction={state.transaction} handleDescription={(e: any) => dispatch({ type: "description", payload: e.target.value })} />
-
-
-        {/* CATEGORY */}
-        <Categories category={state.category} transaction={state.transaction} handleCategory={(e: any) => dispatch({ type: "category", payload: e.target.name })} />
-
-
-        {/* ACCOUNT */}
-        <Accounts account={state.account} handleAccount={(e: any) => dispatch({ type: "account", payload: e.target.name })} />
-
-
-        {/* RECCURENCE */}
-        {state.transaction === "expense" ?
-          <Reccurence reccurence={state.reccurence} reccurenceValue={state.reccurenceValue} handleReccurence={(e: any) => dispatch({ type: "reccurence", payload: e.target.name })} handleReccurenceValue={(e: any) => dispatch({ type: "reccurenceValue", payload: e })} />
-          : ""}
-
-
-        {/* SUBMIT */}
-
-        <button type="submit" name="valor" className={classNames({
-          [style.button__submit]: true,
-          [state.transaction === "expense" ? style["button__submit--expense"] : style["button__submit--incomes"]]: true,
-        })}><FaPlusCircle className={style.icon} /> Adicionar {state.transaction === "expense" ? "Despesa" : "Renda"}</button>
-
-      </form>
+        : ""}
 
     </div>
   );

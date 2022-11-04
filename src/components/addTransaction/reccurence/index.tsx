@@ -1,6 +1,6 @@
-import style from "../../styles/Components.module.scss";
-import reccurence from "../../data/reccurence.json";
-import IReccurence from "../../interfaces/reccurence";
+import style from "../../../styles/Components.module.scss";
+import reccurence from "../../../data/reccurence.json";
+import IReccurence from "../../../interfaces/reccurence";
 import classNames from "classnames";
 
 export default function Reccurence(props: any) {
@@ -14,7 +14,11 @@ export default function Reccurence(props: any) {
   }
 
   function reccValue(e:any){
+    if(e === "0"){
+      props.handleReccurenceValue("1");
+    } else {
     props.handleReccurenceValue(e);
+    }
   }
 
 
@@ -22,7 +26,7 @@ export default function Reccurence(props: any) {
   return (
     <>
       <div className={style.col100}>
-        <label htmlFor="reccurence">Recorrência</label>
+        <label  className={style.labelAdd}  htmlFor="reccurence">Recorrência</label>
         {reccurence.map((r: IReccurence, index) => (
           <button key={index} className={classNames({
             [style.button]: true,
@@ -35,14 +39,15 @@ export default function Reccurence(props: any) {
       </div>
 
       {props.reccurence === "parcelado" ?
-        <div className={style.col40}>
-          <label htmlFor="reccurence">Em quantas vezes:</label>
-          <input type="number" name="reccurence" onChange={e => reccValue(e.target.value)} />
+        <div className={style.col100}>
+          <label className={style.labelAdd}  htmlFor="reccurence">Em quantas vezes:</label>
+          <input  className={style.inputAdd} min="1" max="72"  type="number" name="reccurence" onChange={e => reccValue(e.target.value)} value={props.reccurenceValue} />
           <span id="messageParcelas" className={classNames({
             [style.message]: true,
-            [style.hidden]: false,
+            [style.hidden]: props.message === true && props.messageReccurenceValue === true ? false : true,
           })}>Digite a quantidade de parcelas</span>
         </div>
-        : ""}</>
+        : ""}
+    </>
   );
 }

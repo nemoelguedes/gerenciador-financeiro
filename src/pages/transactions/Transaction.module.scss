@@ -1,10 +1,53 @@
-.expenses{
+@import "../../styles/Index.module.scss";
+
+.transactions{
   width: 90%;
   background-color: #fff;
   margin: auto;
   margin-top: 16px;
   margin-bottom: 16px;
   padding: 32px;
+  border-radius: 32px;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+    padding: 24px;
+  }
+}
+
+.actionsOnTransactions{
+  width: 90%;
+  margin: auto;
+  display: flex;
+  margin-top: 20px;
+
+}
+
+.icon__order{
+  margin-left: 10px;
+  color: #797979;
+}
+
+.icon__order:hover{
+  color: #282828;
+}
+
+.filters{
+  width: 65%;
+  margin: 0;
+}
+
+.buttonAddTransaction{
+  width: 30%;
+}
+
+.header{
+  width: 90%;
+  background-color: $color1;
+  margin: auto;
+  margin-top: 16px;
+  padding: 8px 32px;
   border-radius: 32px;
   box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
 

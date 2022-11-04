@@ -1,6 +1,7 @@
 export default interface ICategory {
 
   "category" : string,
-  "icon" : string
+  "icon" : string,
+  "transaction" : string
 
 }

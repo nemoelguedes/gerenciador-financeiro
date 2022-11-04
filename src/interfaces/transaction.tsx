@@ -5,9 +5,10 @@ export default interface ITransaction {
   "amount" : number,
   "category" : string,
   "account" : string,
-  "paid" : boolean,
+  "paid" : string,
   "id" : string,
   "reccurence" : string,
+  "reccurenceValue" : string,
   "transaction" : string,
 
 }

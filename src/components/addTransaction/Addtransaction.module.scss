@@ -1,14 +1,68 @@
 @import "../../styles/Index.module.scss";
 
+.addTransaction__div{
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.addTransaction__button {
+  background-color: $color2;
+  padding: 10px 14px;
+  border-radius: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  transition: 1s; 
+}
+
+.addTransaction__button:hover{
+  background-color: $color3;
+  scale: 1.1;
+  transition: 1s;
+}
+
+.icon__addTransaction {
+  height: 20px;
+  width: 20px;
+  color: #fff;
+  margin-right: 20px;
+}
+
+.containerPopup{
+  width: 100%;
+  min-height: 100%;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: rgba($color: #000000, $alpha: 0.7);
+}
+
 .form{
   width: 90%;
   margin: auto;
+  background-color: #fff;
+  max-width: 700px;
+  border-radius: 25px;
+  box-shadow: 15px 15px 30px rgba($color: #000000, $alpha: 0.2);
+  animation: fadeIn 0.5s ease-out backwards;
 
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   padding: 32px;
+  padding-top: 16px;
 
   @media screen and (max-width: 700px) {
     width: 90%;
@@ -16,85 +70,58 @@
   }
 }
 
-label{
-  width: 100%;
-  text-transform: uppercase;
-  font-size: 12px;
-  transition: 0.2s;
-  background-color: #f1f1f1;
-  margin-left: 16px;
-  margin-right: 16px;
-
-  @media screen and (max-width: 700px) {
-    font-size: 12px;
+@keyframes fadeIn {
+  from {
+    transform: scaleY(0) scaleX(0);
+    opacity: 0;
   }
 
+  to {
+    transform: scaleY(1) scaleX(1);
+    opacity: 1;
+  }
 }
 
-input{
-  border: 0;
-  border: 2px #b8b8b8 solid;
-  padding: 8px;
-  width: 100%;
-  background: transparent;
-  border-radius: 16px;
-  font-size: 14px;
+.close{
+  text-align: right;
+  width: 20%;
+  margin-bottom: 16px;
 }
 
-input:hover{
-  border: $color1 3px solid;
+.icon__close{
+  width: 30px;
+  height: 30px;
+  color: #797979;
 }
 
-input:focus{
-  outline: 0;
-  border: $color1 3px solid;
-  background: transparent;
+.icon__close:hover{
+  color: #282828;
 }
 
-.button__submit{
-  padding: 8px;
-  width: 50%;
-  margin: auto;
-  border-radius: 16px;
-  color: #fff;
-  font-size: 16px;
+
+.title{
+  width: 80%;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 25px;
   font-weight: 600;
-  transition: 1s;
-  margin-bottom: 8px;
-
-  
+    
   @media screen and (max-width: 700px) {
-    width: 70%;
-    font-size: 12px;
+    margin-bottom: 8px;
+    font-size: 20px;
   }
 }
 
-.button__submit--expense{
-  background-color: $color6;
-  border: 2px $color6 solid;
-}
+.description{
+  width: 100%;
+  text-align: left;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  margin-bottom: 20px;
 
-.button__submit--incomes{
-  background-color: $color1;
-  border: 2px $color1 solid;
+  @media screen and (max-width: 700px) {
+    font-size: 12px;
+  }
 }
-
-.button__submit--expense:hover{
-  border: $color6 3px solid;
-  background-color: transparent;
-  color: $color6;
-  transform: scale(1.1);
-  transition: 1s;
-}
-
-.button__submit--incomes:hover{
-  border: $color1 3px solid;
-  background-color: transparent;
-  color: $color1;
-  transform: scale(1.1);
-  transition: 1s;
-}
-
 
 
 .selectTransaction{
@@ -104,6 +131,7 @@ input:focus{
   font-size: 14px;
   font-weight: 600;
   transition: 1s;
+  margin-bottom: 30px;
 
   @media screen and (max-width: 700px) {
     font-size: 10px;
@@ -156,15 +184,50 @@ input:focus{
   width: 100%;
 }
 
-.title{
-  width: 100%;
-  margin-top: 32px;
-  margin-bottom: 32px;
+
+
+.button__submit{
+  padding: 8px;
+  width: 50%;
+  margin: auto;
+  border-radius: 16px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  transition: 1s;
+  margin-bottom: 8px;
+
   
   @media screen and (max-width: 700px) {
-    margin-top: 8px;
-    margin-bottom: 8px;
+    width: 70%;
+    font-size: 12px;
   }
+}
+
+.button__submit--expense{
+  background-color: $color6;
+  border: 2px $color6 solid;
+}
+
+.button__submit--incomes{
+  background-color: $color1;
+  border: 2px $color1 solid;
+}
+
+.button__submit--expense:hover{
+  border: $color6 3px solid;
+  background-color: transparent;
+  color: $color6;
+  transform: scale(1.1);
+  transition: 1s;
+}
+
+.button__submit--incomes:hover{
+  border: $color1 3px solid;
+  background-color: transparent;
+  color: $color1;
+  transform: scale(1.1);
+  transition: 1s;
 }
 
 

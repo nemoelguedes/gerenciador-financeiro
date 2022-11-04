@@ -1,0 +1,92 @@
+[
+  {
+    "category" : "casa",
+    "icon" : "assets/icons/casa.svg",
+    "transaction" : "expense"
+  },
+  {
+    "category" : "dívida",
+    "icon" : "assets/icons/divida.svg",
+    "transaction" : "expense"
+  },
+  {
+    "category" : "educação",
+    "icon" : "assets/icons/educacao.svg",
+    "transaction" : "expense"
+  },
+  {
+    "category" : "transporte",
+    "icon" : "assets/icons/transporte.svg",
+    "transaction" : "expense"
+  },
+  {
+    "category" : "digital",
+    "icon" : "assets/icons/digital.svg",
+    "transaction" : "expense"
+  },
+  {
+    "category" : "vestuário",
+    "icon" : "assets/icons/vestuario.svg",
+    "transaction" : "expense"
+  },
+  {
+    "category" : "presentes",
+    "icon" : "assets/icons/presentes.svg",
+    "transaction" : "expense"
+  },
+  {
+    "category" : "saúde",
+    "icon" : "assets/icons/saude.svg",
+    "transaction" : "expense"
+  },
+  {
+    "category" : "mercado",
+    "icon" : "assets/icons/mercado.svg",
+    "transaction" : "expense"
+  },
+  {
+    "category" : "restaurante",
+    "icon" : "assets/icons/restaurante.svg",
+    "transaction" : "expense"
+  },
+  {
+    "category" : "lazer",
+    "icon" : "assets/icons/lazer.svg",
+    "transaction" : "expense"
+  },
+  {
+    "category" : "serviços",
+    "icon" : "assets/icons/servicos.svg",
+    "transaction" : "expense"
+  },
+  {
+    "category" : "viagem",
+    "icon" : "assets/icons/viagem.svg",
+    "transaction" : "expense"
+  },
+  {
+    "category" : "outros",
+    "icon" : "assets/icons/outros.svg",
+    "transaction" : "expense"
+  },
+  {
+    "category" : "rendimento",
+    "icon" : "assets/icons/rendimento.svg",
+    "transaction" : "incomes"
+  },
+  {
+    "category" : "salário",
+    "icon" : "assets/icons/salario.svg",
+    "transaction" : "incomes"
+  },
+  {
+    "category" : "empréstimo",
+    "icon" : "assets/icons/emprestimo.svg",
+    "transaction" : "incomes"
+  },
+  {
+    "category" : "benefício",
+    "icon" : "assets/icons/beneficio.svg",
+    "transaction" : "incomes"
+  }
+]

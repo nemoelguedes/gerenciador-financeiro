@@ -136,7 +136,41 @@
   margin: 0;
   width: 70%;
   font-weight: 600;
-  color: $color4;
+  color: #7e7e7e;
+  min-height:40px;
+  float: left;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
+}
+
+.content__amountexpense{
+  margin: 0;
+  width: 70%;
+  font-weight: 600;
+  color: $color6;
+  min-height:40px;
+  float: left;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
+}
+
+.content__amountincomes{
+  margin: 0;
+  width: 70%;
+  font-weight: 600;
+  color: $color2;
   min-height:40px;
   float: left;
 
@@ -158,6 +192,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  text-align: center;
 
   text-transform: uppercase;
   color: #7e7e7e;
@@ -176,6 +211,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  text-align: center;
 
   @media screen and (max-width: 700px) {
     width: 100%;
@@ -205,15 +241,27 @@
   color: $color4;
 }
 
+.icon__expense{
+  width: 10px;
+  height: 10px;
+  color: $color6;
+}
+
+.icon__incomes{
+  width: 10px;
+  height: 10px;
+  color: $color2;
+}
+
 .icon__paid {
-  color:  $color1;
+  color:  $color2;
   transition: 2s;
   height: 20px;
   width: 20px;
 }
 
 .icon__notPaid {
-  color:  $color4;
+  color:  $color6;
   transition: 2s;
   height: 20px;
   width: 20px;

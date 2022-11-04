@@ -2,8 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "normalize.css";
 import "../src/styles/Index.module.scss";
-// import Transactions from "pages/transactions";
-import AddTransaction from "components/addTransaction";
+import App from "pages/App";
 
 
 const root = ReactDOM.createRoot(
@@ -11,7 +10,6 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <>
-    {/* <Transactions /> */}
-    <AddTransaction />
+    <App />
   </>
 );

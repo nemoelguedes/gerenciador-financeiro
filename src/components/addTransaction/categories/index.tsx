@@ -1,17 +1,16 @@
-import style from "../../styles/Components.module.scss";
-import categoryExpense from "../../data/categories__expenses.json";
-import categoryIncomes from "../../data/categories__incomes.json";
-import ICategory from "../../interfaces/category";
+import style from "../../../styles/Components.module.scss";
+import categories from "../../../data/categories.json";
+import ICategory from "../../../interfaces/category";
 import classNames from "classnames";
 
 export default function Categories(props: any) {
 
-  const category = props.transaction === "expense" ? categoryExpense : categoryIncomes;
+  const category = props.transaction === "expense" ? categories.filter(r => r.transaction === "expense") : categories.filter(r => r.transaction === "incomes");
 
   return (
     <div className={style.col100}>
-      <label>Categoria</label>
-      {category.map((r: ICategory, index) => (
+      <label  className={style.labelAdd} >Categoria</label>
+      {category.map((r: ICategory, index:any) => (
         <button key={index} className={classNames({
           [style.button]: true,
           [props.category === r.category ? style.selected : ""]: true,
@@ -22,7 +21,7 @@ export default function Categories(props: any) {
       }
       <span id="messageCategory" className={classNames({
         [style.message]: true,
-        [style.hidden]: false,
+        [style.hidden]: props.message === true && props.messageCategory === true ? false : true,
       })}>Escolha uma categoria.</span>
     </div>
   );

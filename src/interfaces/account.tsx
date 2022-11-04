@@ -1,6 +1,6 @@
 export default interface IAccount {
 
-  "bank": string,
+  "account": string,
   "id": string,
   "person": string,
   "image": string
