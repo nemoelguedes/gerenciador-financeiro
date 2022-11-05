@@ -5,6 +5,11 @@
   transition: 2s;
   height: 35px;
   width: 35px;
+
+  @media screen and (max-width: 700px) {
+    height: 30px;
+    width: 30px;
+  }
 }
 
 .icon__notPaid {
@@ -12,4 +17,8 @@
   transition: 2s;
   height: 35px;
   width: 35px;
+  @media screen and (max-width: 700px) {
+    height: 30px;
+    width: 30px;
+  }
 }

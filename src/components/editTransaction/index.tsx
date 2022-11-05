@@ -1,36 +1,14 @@
 import classNames from "classnames";
 import Categories from "components/addTransaction/categories";
-import { useEffect, useReducer, useState } from "react";
-import style from "./Addtransaction.module.scss";
-import { FaArrowDown, FaArrowUp, FaPlusCircle } from "react-icons/fa";
+import { useEffect, useReducer} from "react";
+import style from "../addTransaction/Addtransaction.module.scss";
+import { FaPlusCircle } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import Accounts from "components/addTransaction/accounts";
-import Reccurence from "components/addTransaction/reccurence";
 import Description from "components/addTransaction/description";
 import Paid from "components/addTransaction/paid";
 import DateAdd from "components/addTransaction/date";
 import Amount from "components/addTransaction/amount";
-import { v4 as uuidv4 } from "uuid";
-
-const today = new Date();
-const year = today.getFullYear();
-const mo = today.getMonth() + 1;
-const da = today.getDate();
-const month = mo < 10 ? "0" + mo : mo;
-const day = da < 10 ? "0" + da : da;
-const initialDate = year + "-" + month + "-" + day;
-
-const transactionState = {
-  date: initialDate,
-  amount: "0,00",
-  reccurence: "não",
-  reccurenceValue: "1",
-  transaction: "expense",
-  paid: true,
-  category: "",
-  account: "",
-  description: "",
-};
 
 const initialMessage = {
   message: false,
@@ -111,25 +89,35 @@ const reducerMessage = (message: any, action: any) => {
 
 
 
-export default function AddTransaction() {
+export default function EditTransaction(props: any) {
+
+  const transactionList = JSON.parse(localStorage.getItem("transactions") || '{}');
+
+  const transaction = transactionList.filter((r: any) => r.id === props.idEdit);
+
+  console.log("aqui",transaction);
+
+  const transactionState = {
+    date: transaction[0].date,
+    amount: transaction[0].amount,
+    reccurence: transaction[0].reccurence,
+    reccurenceValue: transaction[0].reccurenceValue,
+    transaction: transaction[0].transaction,
+    paid: transaction[0].paid === "true" ? true : false,
+    category: transaction[0].category,
+    account: transaction[0].account,
+    description: transaction[0].description,
+  };
 
   const [state, dispatch] = useReducer(reducer, transactionState);
   const [message, dispatchMessage] = useReducer(reducerMessage, initialMessage);
-  const [openPopup, setOpenPopup] = useState(false);
 
-  // TYPE OF TRANSACTION
-  function selectTransaction(e: any) {
-    dispatch({ type: "reset", payload: transactionState });
-    dispatchMessage({ type: "reset", payload: initialMessage });
-    dispatch({ type: "transaction", payload: e.target.name });
-  }
-
+  // CLOSE 
   function close(e: any) {
     dispatch({ type: "reset", payload: transactionState });
     dispatchMessage({ type: "reset", payload: initialMessage });
-    setOpenPopup(false);
+    props.handleEditTransaction(false);
     document.body.style.overflowY = 'unset';
-
   }
 
   //MESSAGE
@@ -166,116 +154,58 @@ export default function AddTransaction() {
   }, [state]);
 
 
-  // RECCURENCE
-  const quantasParcelas = parseInt(state.reccurenceValue);
-
-  const scoreMin = Math.ceil(10000000);
-  const scoreMax = Math.floor(99999999);
-  const random = Math.floor(Math.random() * (scoreMax - scoreMin + 1)) + scoreMin;
-
   //SUBMIT
   function submitTransaction(r: any) {
     r.preventDefault();
-
     if (state.amount === "0,00" || state.description === "" || state.category === "" || state.account === "") {
       dispatchMessage({ type: "message", payload: true });
       return;
     } else {
-      for (let i = 0; i < quantasParcelas; i++) {
 
-        // GET DATE FROM LOCALSTORAGE
-        const dataLocalStorage = JSON.parse(localStorage.transactions);
+      const dataLocalStorage = JSON.parse(localStorage.transactions);
+      const localStorageTransactionRemoved = dataLocalStorage.filter((r: any) => r.id !== props.idEdit);
 
-        const firstDate = state.date;
-        const createDate= new Date(firstDate);
-        const addingMonth = new Date(createDate.setMonth(createDate.getMonth() + i));
-        const newDate = new Date(addingMonth.setDate(addingMonth.getDate() + 1));
-
-        const newYear = newDate.getFullYear();
-        const newMo = newDate.getMonth() + 1;
-        const newDa = newDate.getDate();
-        const newMonth = newMo < 10 ? "0" + newMo : newMo;
-        const newDay = newDa < 10 ? "0" + newDa : newDa;
-        const dateReccurence = newYear + "-" + newMonth + "-" + newDay;
-
-        // DATA TO LOCALSTORAGE
-        const dataTransactionToSave = {
-          "date": dateReccurence,
-          "description": state.description,
-          "amount": state.amount,
-          "category": state.category,
-          "account": state.account,
-          "paid": `${state.paid}`,
-          "id": uuidv4() + i + random,
-          "reccurence": state.reccurence,
-          "reccurenceValue": `${i + 1}/${quantasParcelas}`,
-          "transaction": state.transaction,
-        }
-
-        const saveOnLocalStorage = [...dataLocalStorage, dataTransactionToSave];
-        localStorage.setItem("transactions", JSON.stringify(saveOnLocalStorage));
+      // DATA TO LOCALSTORAGE
+      const dataTransactionToSave = {
+        "date": state.date,
+        "description": state.description,
+        "amount": state.amount,
+        "category": state.category,
+        "account": state.account,
+        "paid": `${state.paid}`,
+        "id": state.id,
+        "reccurence": state.reccurence,
+        "reccurenceValue": state.reccurenceValue,
+        "transaction": state.transaction,
       };
 
-      window.dispatchEvent(new Event("storage"));
-      dispatch({ type: "reset", payload: transactionState });
-      dispatchMessage({ type: "reset", payload: initialMessage });
-      setOpenPopup(false);
-      document.body.style.overflowY = 'unset';
-    }
+      // SAVING ON LOCALSTORAGE
+      const saveOnLocalStorage = [...localStorageTransactionRemoved, dataTransactionToSave];
+      localStorage.setItem("transactions", JSON.stringify(saveOnLocalStorage));
+    };
 
-
-
-  }
-
-  function openModal() {
-    document.body.style.overflowY = 'hidden';
-    setOpenPopup(true);
-  }
+    window.dispatchEvent(new Event("storage"));
+    dispatch({ type: "reset", payload: transactionState });
+    dispatchMessage({ type: "reset", payload: initialMessage });
+    props.handleEditTransaction(false);
+    document.body.style.overflowY = 'unset';
+  };
 
 
   return (
-    <div>
-      <div className={style.addTransaction__div}>
-        <button className={style.addTransaction__button} type="button" onClick={openModal}><FaPlusCircle className={style.icon__addTransaction} /> Adicionar Transação</button>
-      </div>
-
-      {openPopup === true ?
-
         <div className={style.containerPopup}>
 
           <form className={style.form} onSubmit={submitTransaction}>
 
-
-
             {/* TITLE */}
             <div className={style.title}>
-              Adicionar {state.transaction === "expense" ? "Despesa" : "Renda"}
+             Editar {state.transaction === "expense" ? "Despesa" : "Renda"}
             </div>
 
             <div className={style.close}><IoMdClose className={style.icon__close} onClick={close} /></div>
 
             <div className={style.description}>
-              Preencha os campos abaixo para adicionar uma nova {state.transaction === "expense" ? "Despesa" : "Renda"}.
-            </div>
-
-
-
-            {/* TRANSACTION */}
-            <div className={style.selectTransaction__div}>
-              <button type="button" name="expense" className={classNames({
-                [style.selectTransaction]: true,
-                [style.selectTransaction__expense]: true,
-                [state.transaction === "expense" ? style.selectTransaction__focusexpense : ""]: true,
-              })} onClick={selectTransaction}>
-                <FaArrowDown className={style.icon} /> DESPESA
-              </button>
-              <button type="button" name="incomes" className={classNames({
-                [style.selectTransaction]: true,
-                [style.selectTransaction__incomes]: true,
-                [state.transaction === "incomes" ? style.selectTransaction__focusincomes : ""]: true,
-              })} onClick={selectTransaction}>
-                <FaArrowUp className={style.icon} /> RENDA
-              </button>
+              Você pode alterar os valores da {state.transaction === "expense" ? "Despesa" : "Renda"}.
             </div>
 
             {/* AMOUNT */}
@@ -284,42 +214,32 @@ export default function AddTransaction() {
             {/* DATE */}
             <DateAdd date={state.date} label={"Data:"} handleDate={(e: any) => dispatch({ type: "date", payload: e.target.value })} />
 
-
             {/* PAID */}
-            <Paid paid={state.paid} transaction={state.transaction} handlePaid={(e: any) => dispatch({ type: "paid", payload: e})} />
-
+            <Paid paid={state.paid} transaction={state.transaction} handlePaid={(e: any) => dispatch({ type: "paid", payload: e })} />
 
             {/* DESCRIPTION */}
             <Description description={state.description} transaction={state.transaction} handleDescription={(e: any) => dispatch({ type: "description", payload: e.target.value })} message={message.message} messageDescription={message.messageDescription} />
 
-
             {/* CATEGORY */}
             <Categories category={state.category} transaction={state.transaction} handleCategory={(e: any) => dispatch({ type: "category", payload: e.target.name })} message={message.message} messageCategory={message.messageCategory} />
-
 
             {/* ACCOUNT */}
             <Accounts account={state.account} handleAccount={(e: any) => dispatch({ type: "account", payload: e.target.name })} message={message.message} messageAccount={message.messageAccount} />
 
-
-            {/* RECCURENCE */}
-            {state.transaction === "expense" ?
-              <Reccurence reccurence={state.reccurence} reccurenceValue={state.reccurenceValue} handleReccurence={(e: any) => dispatch({ type: "reccurence", payload: e.target.name })} handleReccurenceValue={(e: any) => dispatch({ type: "reccurenceValue", payload: e })} message={message.message} messageReccurenceValue={message.messageReccurenceValue} />
-              : ""}
-
+            {/* CANCLE */}
+            <button  onClick={close} type="button" name="cancel" className={classNames({
+              [style.button__submit]: true,
+              [style["button__submit--expense"]]: true,
+            })}><IoMdClose className={style.icon} /> Cancelar</button>
 
             {/* SUBMIT */}
-
             <button type="submit" name="valor" className={classNames({
               [style.button__submit]: true,
-              [state.transaction === "expense" ? style["button__submit--expense"] : style["button__submit--incomes"]]: true,
-            })}><FaPlusCircle className={style.icon} /> Adicionar {state.transaction === "expense" ? "Despesa" : "Renda"}</button>
+              [style["button__submit--incomes"]]: true,
+            })}><FaPlusCircle className={style.icon} /> Atualizar</button>
 
           </form>
 
         </div>
-
-        : ""}
-
-    </div>
   );
 }

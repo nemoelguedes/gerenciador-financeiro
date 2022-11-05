@@ -13,54 +13,14 @@
   justify-content:flex-start;
   align-items:flex-start;
   flex-wrap: wrap;
+  flex-direction: row;
 
 
 }
-
-.content__block1{
-
-  width: 30%;
-
-  @media screen and (max-width: 700px) {
-    width: 25%;
-  }
-
-}
-
-.content__block2{
-
-  width: 35%;
-
-  @media screen and (max-width: 700px) {
-    width: 40%;
-  }
-  
-}
-
-.content__block3{
-
-  width: 20%;
-
-  @media screen and (max-width: 700px) {
-    width: 20%;
-  }
-  
-}
-
-.content__block4{
-
-  width: 15%;
-
-  @media screen and (max-width: 700px) {
-    width: 15%;
-  }
-  
-}
-
 
 .content__date{
   margin: 0;
-  width: 35%;
+  width: 12%;
   align-items: center;
   min-height:40px;
   text-align: left;
@@ -71,36 +31,15 @@
   justify-content: flex-start;
 
   @media screen and (max-width: 700px) {
-    width: 100%;
+    width: 40%;
+    min-height: 30px;
   }
   
-}
-
-.content__category{
-  margin: 0;
-  width: 65%;
-  display: flex;
-  align-items: center;
-  font-size: 10px;
-  font-weight: 600;
-  min-height:40px;
-  text-transform: uppercase;
-  float: left;
-  
-
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-
-  @media screen and (max-width: 700px) {
-    width: 100%;
-  }
-
 }
 
 .content__description{
   margin: 0;
-  width: 70%;
+  width: 20%;
   min-height:40px;
   float: left;
 
@@ -109,49 +48,42 @@
   justify-content: flex-start;
 
   @media screen and (max-width: 700px) {
-    width: 100%;
+    width: 60%;
+    min-height: 30px;
   }
 }
 
-.content__account{
+
+
+
+.content__category{
   margin: 0;
-  width: 30%;
+  width: 18%;
+  display: flex;
+  align-items: center;
   font-size: 10px;
+  font-weight: 600;
   min-height:40px;
   text-transform: uppercase;
-  color: #7e7e7e;
   float: left;
-
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-
-  @media screen and (max-width: 700px) {
-    width: 100%;
-  }
   
-}
-
-.content__amount{
-  margin: 0;
-  width: 70%;
-  font-weight: 600;
-  color: #7e7e7e;
-  min-height:40px;
-  float: left;
 
   display: flex;
   align-items: center;
   justify-content: flex-start;
 
   @media screen and (max-width: 700px) {
-    width: 100%;
+    width: 40%;
+    min-height: 30px;
   }
+
 }
+
+
 
 .content__amountexpense{
   margin: 0;
-  width: 70%;
+  width: 15%;
   font-weight: 600;
   color: $color6;
   min-height:40px;
@@ -162,13 +94,14 @@
   justify-content: flex-start;
 
   @media screen and (max-width: 700px) {
-    width: 100%;
+    width: 40%;
+    min-height: 30px;
   }
 }
 
 .content__amountincomes{
   margin: 0;
-  width: 70%;
+  width: 15%;
   font-weight: 600;
   color: $color2;
   min-height:40px;
@@ -179,13 +112,55 @@
   justify-content: flex-start;
 
   @media screen and (max-width: 700px) {
-    width: 100%;
+    width: 40%;
+    min-height: 30px;
   }
+}
+
+
+.content__paid{
+  margin: 0;
+  width: 7.5%;
+  min-height:40px;
+  float: left;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  @media screen and (max-width: 700px) {
+    width: 20%;
+    justify-content: center;
+    min-height: 30px;
+  }
+}
+
+
+
+.content__account{
+  margin: 0;
+  width: 15%;
+  font-size: 10px;
+  min-height:40px;
+  text-transform: uppercase;
+  color: #7e7e7e;
+  float: left;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  @media screen and (max-width: 700px) {
+    width: 40%;
+    min-height: 30px;
+  }
+  
 }
 
 .content__reccurence{
   margin: 0;
-  width: 20%;
+  width: 5%;
   min-height:40px;
   float: left;
 
@@ -198,29 +173,16 @@
   color: #7e7e7e;
 
   @media screen and (max-width: 700px) {
-    width: 100%;
+    width: 40%;
+    min-height: 30px;
   }
 }
 
-.content__paid{
-  margin: 0;
-  width: 40%;
-  min-height:40px;
-  float: left;
-  
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  text-align: center;
 
-  @media screen and (max-width: 700px) {
-    width: 100%;
-  }
-}
 
 .content__action{
   margin: 0;
-  width: 60%;
+  width: 7.5%;
   min-height:40px;
   text-align: right;
   float: left;
@@ -230,7 +192,9 @@
   justify-content: flex-end;
 
   @media screen and (max-width: 700px) {
-    width: 100%;
+    width: 20%;
+    min-height: 30px;
+    justify-content: center;
   }
 }
 

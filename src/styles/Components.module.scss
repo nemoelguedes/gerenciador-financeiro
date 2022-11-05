@@ -1,54 +1,61 @@
 @import "./Index.module.scss";
 
 .col40{
-  width: 33%;
-  margin-right: 10%;
+  width: 40%;
   margin-bottom: 16px;
   
   @media screen and (max-width: 700px) {
-    width: 100%;
-    margin-right: 5%;
+    width: 40%;
+    margin-bottom: 8px;
   }
 }
 
 .col60{
-  width: 47%;
-  margin-right: 10%;
+  width: 60%;
   margin-bottom: 16px;
 
   @media screen and (max-width: 700px) {
     width: 100%;
-    margin-right: 5%;
+    margin-bottom: 8px;
   }
 }
 
 .col10{
-  width: 14%;
+  width: 20%;
   text-align: center;
   margin-bottom: 16px;
 
   @media screen and (max-width: 700px) {
-    width: 100%;
-    margin-right: 5%;
+    width: 20%;
+    margin-bottom: 8px;
   }
 }
 
 .col100{
   width: 100%;
   margin-bottom: 16px;
+  
 
   @media screen and (max-width: 700px) {
     width: 100%;
-    margin-right: 5%;
+    margin-bottom: 8px;
   }
 }
 
 .message{
   color: $color6;
+  width: 100%;
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 600;
   margin-left: 16px;
+  text-align: left;
+
+  @media screen and (max-width: 700px) {
+    margin-left: 8px;
+    font-size: 9px;
+  }
+  
 }
 
 .hidden {
@@ -67,8 +74,9 @@
   text-transform: uppercase;
 
   @media screen and (max-width: 700px) {
-    font-size: 10px;
+    font-size: 9px;
     border: 1px solid #b8b8b8;
+    margin: 2px;
   }
 }
 
@@ -111,7 +119,9 @@
   margin-right: 16px;
 
   @media screen and (max-width: 700px) {
-    font-size: 12px;
+    font-size: 9px;
+    font-weight: 600;
+    margin-right: 8px;
   }
 
 }
@@ -120,10 +130,18 @@
   border: 0;
   border: 2px #b8b8b8 solid;
   padding: 8px;
-  width: 100%;
+  width: calc(100% - 20px);
   background: transparent;
   border-radius: 16px;
   font-size: 14px;
+
+  @media screen and (max-width: 700px) {
+    font-size: 12px;
+    padding: 5px;
+    width: calc(100% - 20px);
+    margin-right: 2px;
+    margin-left: 2px;
+  }
 }
 
 .inputAdd:hover{

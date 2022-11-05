@@ -11,4 +11,5 @@ export default interface ITransaction {
   "reccurenceValue" : string,
   "transaction" : string,
 
+
 }
