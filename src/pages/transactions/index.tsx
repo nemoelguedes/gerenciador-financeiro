@@ -8,6 +8,7 @@ import { FaArrowDown, FaArrowUp, FaFilter } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import styleFilter from "../../components/filters/Filters.module.scss";
 import EditTransaction from "components/editTransaction";
+import Dashboard from "components/Dashboard";
 
 
 
@@ -87,12 +88,40 @@ const openPopUps = (statePopUps: any, action: any) => {
   }
 }
 
+// const initialResults = {
+//   incomes: "0,00",
+//   expenses: "0,00",
+//   sumResults: "0,00",
+// };
+
+// const reduceResults = (results: any, action: any) => {
+//   switch (action.type) {
+
+//     case "incomes":
+//       return { ...results, incomes: action.payload };
+
+//     case "expenses":
+//       return { ...results, expenses: action.payload };
+
+//     case "sumResults":
+//       return { ...results, sumResults: action.payload };
+
+//     case "reset":
+//       return action.payload;
+
+//     default:
+//       throw new Error();
+
+//   }
+// }
+
 export default function Transactions() {
 
   const [state, dispatch] = useReducer(filtersStates, initialFilters)
   const [updateTransactions, setUpdateTransactions] = useState(false);
   const [order, setOrder] = useState(false);
   const [statePopUps, dispatchPopUps] = useReducer(openPopUps, initialPopUps);
+  // const [results, dispatchResults] = useReducer(reduceResults, initialResults);
 
 
   window.addEventListener('storage', () => {
@@ -115,6 +144,23 @@ export default function Transactions() {
       if (a.date > b.date) { return 1; } if (a.date < b.date) { return -1; } return 0;
     }).reverse();
 
+  const sumOfTransactions = listOfTransactions;
+  const incomesFilter = sumOfTransactions.filter((r: any) => r.transaction === "incomes");
+  const incomesMap = incomesFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
+  const incomesSum = incomesMap.reduce((r: number, m: number) => r + m, 0);
+  const incomesFixed = incomesSum.toFixed(2);
+  const incomesShow = incomesFixed.toString().replace(".",",");
+
+  const expenseFilter = sumOfTransactions.filter((r: any) => r.transaction === "expense");
+  const expenseMap = expenseFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
+  const expenseSum = expenseMap.reduce((r: number, m: number) => r + m, 0);
+  const expenseFixed = expenseSum.toFixed(2);
+  const expenseShow = expenseFixed.toString().replace(".",",");
+
+
+  const resultsSum = incomesSum - expenseSum;
+  const resultsFixed = resultsSum.toFixed(2);
+  const resultsShow = resultsFixed.toString().replace(".",",");
 
   const stylingHeader = {
     "color": "#000",
@@ -122,10 +168,19 @@ export default function Transactions() {
     "fontWeight": "600",
   }
 
+  function closeFilters(e:any){
+    dispatchPopUps({ type: "filters", payload: e });
+    dispatch({type:"reset", payload: initialFilters});
+
+  }
+
   return (
     <>
 
-      {statePopUps.editTransaction === true ? <EditTransaction idEdit={statePopUps.idEdit} handleEditTransaction={(e: any) => dispatchPopUps({ type: "editTransaction", payload: e})} /> : ""}
+      {/* <Dashboard incomes={results.incomes} expenses={results.expenses} sumResults={results.sumResults} /> */}
+      <Dashboard incomes={incomesShow} expenses={expenseShow} sumResults={resultsShow} />
+
+      {statePopUps.editTransaction === true ? <EditTransaction idEdit={statePopUps.idEdit} handleEditTransaction={(e: any) => dispatchPopUps({ type: "editTransaction", payload: e })} /> : ""}
 
       <div className={style.actionsOnTransactions}>
 
@@ -146,10 +201,10 @@ export default function Transactions() {
 
         <div className={style.buttonAddFilters}><AddTransaction /></div>
         <div className={style.filters}><div className={style.addFilters__div}>
-          <button className={style.addFilters__button} type="button" onClick={(e: any) => dispatchPopUps({ type: "filters", payload: e })}>
-            {statePopUps.filters === true ? <>
-              <IoMdClose className={style.icon__closeFilters} /> Fechar Filtros </> : <>
-              <FaFilter className={style.icon__addFilters} /> Filtros</>}</button>
+          
+            {statePopUps.filters === true
+            ? <button className={style.addFilters__button} type="button"  onClick={closeFilters}><IoMdClose className={style.icon__closeFilters} /> Fechar Filtros </button>
+            : <button className={style.addFilters__button} type="button" onClick={(e: any) => dispatchPopUps({ type: "filters", payload: e })}><FaFilter className={style.icon__addFilters} /> Filtros</button>}
         </div>
 
         </div>
@@ -198,7 +253,7 @@ export default function Transactions() {
 
         </div>
         {listOfTransactions.map(
-          (m: any, index: any) => <SingleTransaction key={index} id={m.id} date={m.date} description={m.description} amount={m.amount} category={m.category} account={m.account} paid={m.paid} reccurence={m.reccurence} reccurenceValue={m.reccurenceValue} transaction={m.transaction} handleEditTransaction={(e: any) => dispatchPopUps({ type: "editTransaction", payload: e})} handleIdEdit={(e: any) => dispatchPopUps({ type: "idEdit", payload: e})}  />
+          (m: any, index: any) => <SingleTransaction key={index} id={m.id} date={m.date} description={m.description} amount={m.amount} category={m.category} account={m.account} paid={m.paid} reccurence={m.reccurence} reccurenceValue={m.reccurenceValue} transaction={m.transaction} handleEditTransaction={(e: any) => dispatchPopUps({ type: "editTransaction", payload: e })} handleIdEdit={(e: any) => dispatchPopUps({ type: "idEdit", payload: e })} />
 
         )}
       </div ></>

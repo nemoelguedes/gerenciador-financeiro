@@ -1,0 +1,64 @@
+@import "../../styles/Index.module.scss";
+
+.section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-top: 20px;
+}
+
+.container {
+  width: 29%;
+  margin-right: 2%;
+  margin-left: 2%;
+  border-radius: 25px;
+  box-shadow: 3px 3px 7px #c8c8c8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  
+  color:#fff;
+
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+}
+
+.incomes {
+  background-color: $color1;
+}
+
+.expenses {
+  background-color: $color6;
+}
+
+.sum {
+  background-color: #8026F5;
+}
+
+
+.title{
+  font-size: 14px;
+  width: 100%;
+}
+
+.data {
+  width: 70%;
+}
+
+.value{
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.icon{
+  height: 35px;
+  width: 35px;
+  margin-right: 30px;
+}
