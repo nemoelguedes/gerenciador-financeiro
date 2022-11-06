@@ -2,16 +2,21 @@ import Transactions from "pages/transactions";
 import dataAccounts from "../data/accounts.json";
 import dataCategories from "../data/categories.json";
 import dataTransactions from "../data/transactions.json";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import style from "./App.module.scss";
 import Home from "./home";
 import Orcamento from "./orcamento";
 import DashboardInicial from "./dashboard";
 import Contas from "./contas";
-import {FaChartBar} from "react-icons/fa";
+import { FaChartBar, FaHome, FaList, FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
+import { RiBankFill } from "react-icons/ri";
+import { MdAutoGraph } from "react-icons/md";
+import classNames from "classnames";
 
 export default function App() {
+
+  const [navState, setNavState] = useState(true);
 
   useEffect(() => {
 
@@ -26,48 +31,95 @@ export default function App() {
     if (!localStorage.transactions) {
       localStorage.transactions = JSON.stringify(dataTransactions);
     }
-
-
   },);
+
+
 
   return (
     <>
       <Router>
         <section className={style.section}>
-        <div className={style.container__nav}>
-          <img src="" />
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Início</Link>
-              </li>
-              <li>
-                <Link to="/dashboard"><FaChartBar className={style.nav__icon} />Dashboard</Link>
-              </li>
-              <li>
-                <Link to="/transacoes">Transações</Link>
-              </li>
-              <li>
-                <Link to="/contas">Contas</Link>
-              </li>
-              <li>
-                <Link to="/orcamento">Orçamento</Link>
-              </li>
-            </ul>
-          </nav>
+          <div className={classNames({
+            [style.container__nav]: true,
+            [navState === true ? style["container__nav--statea"] : style["container__nav--stateb"]]: true,
+          })}>
+            {navState === true
+              ? <FaArrowAltCircleRight className={classNames({
+                [style.container__icon]: true,
+                [style["container__icon--statea"]]: true,
+              })} onClick={() => setNavState(!navState)} />
+              : <FaArrowAltCircleLeft className={classNames({
+                [style.container__icon]: true,
+                [style["container__icon--stateb"]]: true,
+              })} onClick={() => setNavState(!navState)} />}
+            <nav>
+              <ul>
+                <li>
+                  <Link to="/">
+                    <FaHome className={style.nav__icon} />
+                    <div className={classNames({
+                      [navState === true ? style["nav__title--close"] : style.nav__title]: true,
+                    })}>
+                      Início
+                    </div>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/dashboard">
+                    <FaChartBar className={style.nav__icon} />
+                    <div className={classNames({
+                      [navState === true ? style["nav__title--close"] : style.nav__title]: true,
+                    })}>
+                      Dashboard
+                    </div>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/transacoes">
+                    <FaList className={style.nav__icon} />
+                    <div className={classNames({
+                      [navState === true ? style["nav__title--close"] : style.nav__title]: true,
+                    })}>
+                      Transações
+                    </div>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/contas">
+                    <RiBankFill className={style.nav__icon} />
+                    <div className={classNames({
+                      [navState === true ? style["nav__title--close"] : style.nav__title]: true,
+                    })}>
+                      Contas
+                    </div>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/orcamento">
+                    <MdAutoGraph className={style.nav__icon} />
+                    <div className={classNames({
+                      [navState === true ? style["nav__title--close"] : style.nav__title]: true,
+                    })}>
+                      Orçamento
+                    </div>
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
 
-          Este webapp foi desenvolvido por ...
-        </div>
-
-        <div className={style.container__pages}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/transacoes" element={<Transactions />} />
-          <Route path="/orcamento" element={<Orcamento />} />
-          <Route path="/dashboard" element={<DashboardInicial />} />
-          <Route path="/contas" element={<Contas />} />
-        </Routes>
-        </div>
+          <div className={classNames({
+            [style.container__pages] : true,
+            [navState === true ? style["container__pages--statea"] : style["container__pages--stateb"]]: true,
+          })}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/transacoes" element={<Transactions />} />
+              <Route path="/orcamento" element={<Orcamento />} />
+              <Route path="/dashboard" element={<DashboardInicial />} />
+              <Route path="/contas" element={<Contas />} />
+            </Routes>
+          </div>
         </section>
       </Router>
     </>
