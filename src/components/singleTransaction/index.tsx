@@ -11,6 +11,12 @@ export default function SingleTransaction(props: any) {
   const preIconCategory = category.filter(r => props.category === r.category);
   const iconCategory = preIconCategory.map(m => [m.category, m.icon]).flat();
 
+  // SEACHING ACCOUNT NAME
+
+  const accountsLocalStorage = JSON.parse(localStorage.getItem("accounts") || '{}');
+  const accountsFilter = accountsLocalStorage.filter((r:any) => props.account === r.id);
+  const accountName = accountsFilter[0].account;
+
   function removeFromLocalStorage() {
     const transaction = JSON.parse(localStorage.getItem("transactions") || '{}');
     const filtered = transaction.filter((e: any) => e.id !== props.id);
@@ -37,11 +43,11 @@ export default function SingleTransaction(props: any) {
     const secondPart = dataToSplit.splice(index + 1, lenght);
 
 
-    const dataFromThisTransaction = dataLocalStorage.filter((r: any) => r.id == props.id);
-    const localStorageTransactionRemoved = dataLocalStorage.filter((r: any) => r.id !== props.id);
+    const dataFromThisTransaction = dataLocalStorage.filter((r: any) => r.id === props.id);
+    // const localStorageTransactionRemoved = dataLocalStorage.filter((r: any) => r.id !== props.id);
     const newArray = dataFromThisTransaction[0];
     const paidTrueOrFalse = newArray.paid
-    const changingPaid = paidTrueOrFalse == "true" ? "false" : "true";
+    const changingPaid = paidTrueOrFalse === "true" ? "false" : "true";
     newArray.paid = changingPaid;
 
 
@@ -82,7 +88,7 @@ export default function SingleTransaction(props: any) {
       </div>
 
       {/* ACCOUNT */}
-      <div className={style.content__account}>{props.account}</div>
+      <div className={style.content__account}>{accountName}</div>
 
       {/* RECURRENCE */}
       <div className={style.content__reccurence}>

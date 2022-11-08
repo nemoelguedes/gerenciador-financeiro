@@ -4,23 +4,23 @@
     "description": "Padaria",
     "amount": "25,53",
     "category": "casa",
-    "account": "nubank",
-    "paid": false,
+    "account": "bankx",
+    "paid": "false",
     "id": "expense1",
     "reccurence": "parcelado",
-    "reccurenceValue": "1/2",
+    "reccurenceValue": "2/2",
     "transaction": "expense"
   },
   {
     "date": "2022-11-01",
     "description": "Renda Extra",
-    "amount": 54.35,
+    "amount": "325,35",
     "category": "rendimento",
-    "account": "itau",
-    "paid": false,
+    "account": "dinheiro",
+    "paid": "false",
     "id": "income2",
     "reccurence": "não",
     "reccurenceValue": "1",
-    "transaction": "income"
+    "transaction": "incomes"
   }
 ]

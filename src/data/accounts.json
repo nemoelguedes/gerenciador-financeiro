@@ -1,32 +1,18 @@
 [
   {
-    "account" : "Nubank",
-    "id" : "nubank",
-    "person" :  "Usuário55",
-    "image" : ""
-  },
-  {
-    "account" : "Itaú",
-    "id" : "itau",
-    "person" :  "Usuário88",
-    "image" : ""
+    "account" : "BancoX",
+    "id" : "bankx"
   },
   {
     "account" : "Poupança",
-    "id" : "poupanca",
-    "person" :  "Usuário55",
-    "image" : ""
+    "id" : "poupanca"
   },
   {
     "account" : "Dinheiro",
-    "id" : "dinheiro",
-    "person" :  "Usuário88",
-    "image" : ""
+    "id" : "dinheiro"
   },
   {
-    "account" : "Cartão de Crédito",
-    "id" : "cartao_de_credito",
-    "person" :  "Usuário88",
-    "image" : ""
+    "account" : "CartãoX",
+    "id" : "cartaox"
   }
 ]

@@ -10,9 +10,6 @@ import styleFilter from "../../components/filters/Filters.module.scss";
 import EditTransaction from "components/editTransaction";
 import Dashboard from "components/Dashboard";
 
-
-
-
 const today = new Date();
 const year = today.getFullYear();
 const mo = today.getMonth() + 1;
@@ -88,40 +85,12 @@ const openPopUps = (statePopUps: any, action: any) => {
   }
 }
 
-// const initialResults = {
-//   incomes: "0,00",
-//   expenses: "0,00",
-//   sumResults: "0,00",
-// };
-
-// const reduceResults = (results: any, action: any) => {
-//   switch (action.type) {
-
-//     case "incomes":
-//       return { ...results, incomes: action.payload };
-
-//     case "expenses":
-//       return { ...results, expenses: action.payload };
-
-//     case "sumResults":
-//       return { ...results, sumResults: action.payload };
-
-//     case "reset":
-//       return action.payload;
-
-//     default:
-//       throw new Error();
-
-//   }
-// }
-
 export default function Transactions() {
 
   const [state, dispatch] = useReducer(filtersStates, initialFilters)
   const [updateTransactions, setUpdateTransactions] = useState(false);
   const [order, setOrder] = useState(false);
   const [statePopUps, dispatchPopUps] = useReducer(openPopUps, initialPopUps);
-  // const [results, dispatchResults] = useReducer(reduceResults, initialResults);
 
 
   window.addEventListener('storage', () => {
@@ -130,12 +99,14 @@ export default function Transactions() {
 
   const transaction = JSON.parse(localStorage.getItem("transactions") || '{}');
 
-  const transactionFiltered = transaction.filter(
-    (r: any) => state.initialDate <= r.date && state.finalDate >= r.date).filter(
+  const transactionFilteredOffDate = transaction.filter(
       (r: any) => state.paid !== "todos" ? r.paid === state.paid : r).filter(
         (r: any) => state.category !== "todas" ? r.category === state.category : r).filter(
           (r: any) => state.account !== "todas" ? r.account === state.account : r).filter(
             (r: any) => state.transaction !== "todas" ? r.transaction === state.transaction : r);
+
+  const transactionFiltered = transactionFilteredOffDate.filter(
+    (r: any) => state.initialDate <= r.date && state.finalDate >= r.date);
 
   const listOfTransactions = order === false ? transactionFiltered.sort(function (a: any, b: any) {
     if (a.date > b.date) { return 1; } if (a.date < b.date) { return -1; } return 0;
@@ -145,22 +116,65 @@ export default function Transactions() {
     }).reverse();
 
   const sumOfTransactions = listOfTransactions;
-  const incomesFilter = sumOfTransactions.filter((r: any) => r.transaction === "incomes");
+
+  // PREVIOUS BALANCE
+
+  const previousIncomesFilter = transactionFilteredOffDate.filter((r: any) => r.transaction === "incomes").filter(
+    (r: any) => r.paid === "true").filter(
+    (r: any) => "0001-01-01" < r.date && state.initialDate > r.date);
+  const previousIncomesMap = previousIncomesFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
+  const previousIncomesSum = previousIncomesMap.reduce((r: number, m: number) => r + m, 0);
+
+  const previousExpenseFilter = transactionFilteredOffDate.filter((r: any) => r.transaction === "expense").filter(
+    (r: any) => r.paid === "true").filter(
+    (r: any) => "0001-01-01" < r.date && state.initialDate > r.date);
+  const previousExpenseMap = previousExpenseFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
+  const previousExpenseSum = previousExpenseMap.reduce((r: number, m: number) => r + m, 0);
+
+  const previousSum = previousIncomesSum - previousExpenseSum;
+  const previousFixed = previousSum.toFixed(2);
+  const previousShow = previousFixed.toString().replace(".", ",");
+
+  console.log("show",previousShow);
+
+  // INCOMES
+  
+  const incomesFilter = sumOfTransactions.filter((r: any) => r.transaction === "incomes").filter(
+    (r: any) => r.paid === "true");
   const incomesMap = incomesFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
   const incomesSum = incomesMap.reduce((r: number, m: number) => r + m, 0);
   const incomesFixed = incomesSum.toFixed(2);
   const incomesShow = incomesFixed.toString().replace(".",",");
 
-  const expenseFilter = sumOfTransactions.filter((r: any) => r.transaction === "expense");
+  // EXPENSE
+
+  const expenseFilter = sumOfTransactions.filter((r: any) => r.transaction === "expense").filter(
+    (r: any) => r.paid === "true");
   const expenseMap = expenseFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
   const expenseSum = expenseMap.reduce((r: number, m: number) => r + m, 0);
   const expenseFixed = expenseSum.toFixed(2);
   const expenseShow = expenseFixed.toString().replace(".",",");
 
+  // BALANCE
 
-  const resultsSum = incomesSum - expenseSum;
+  const resultsSum = previousSum + incomesSum - expenseSum;
   const resultsFixed = resultsSum.toFixed(2);
   const resultsShow = resultsFixed.toString().replace(".",",");
+
+    // FORECAST
+
+    const incomesForecastFilter = sumOfTransactions.filter((r: any) => r.transaction === "incomes");
+    const incomesForecastMap = incomesForecastFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
+    const incomesForecastSum = incomesForecastMap.reduce((r: number, m: number) => r + m, 0);
+  
+    const expenseForecastFilter = sumOfTransactions.filter((r: any) => r.transaction === "expense");
+    const expenseForecastMap = expenseForecastFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
+    const expenseForecastSum = expenseForecastMap.reduce((r: number, m: number) => r + m, 0);
+  
+    const forecastSum = previousSum + incomesForecastSum - expenseForecastSum;
+    const forecastFixed = forecastSum.toFixed(2);
+    const forecastShow = forecastFixed.toString().replace(".",",");
+  
 
   const stylingHeader = {
     "color": "#000",
@@ -177,26 +191,19 @@ export default function Transactions() {
   return (
     <>
 
-      {/* <Dashboard incomes={results.incomes} expenses={results.expenses} sumResults={results.sumResults} /> */}
-      <Dashboard incomes={incomesShow} expenses={expenseShow} sumResults={resultsShow} />
+      <Dashboard previous={previousShow} incomes={incomesShow} expense={expenseShow} sumResults={resultsShow}  forecastResults={forecastShow} />
 
       {statePopUps.editTransaction === true ? <EditTransaction idEdit={statePopUps.idEdit} handleEditTransaction={(e: any) => dispatchPopUps({ type: "editTransaction", payload: e })} /> : ""}
 
       <div className={style.actionsOnTransactions}>
-
         <div className={styleFilter.containerFilters__date}>
-
           <div className={styleFilter.filter__data}>
-
             <input className={styleFilter.input__data} type="date" name="initialDate" value={state.initialDate} onChange={(e: any) => dispatch({ type: "initialDate", payload: e.target.value })} />
-
           </div>
 
           <div className={styleFilter.filter__data}>
-
             <input className={styleFilter.input__data} type="date" name="finalDate" min={state.initialDate} value={state.finalDate} onChange={(e: any) => dispatch({ type: "finalDate", payload: e.target.value })} />
           </div>
-
         </div>
 
         <div className={style.buttonAddFilters}><AddTransaction /></div>

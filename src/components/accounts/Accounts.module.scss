@@ -1,0 +1,102 @@
+@import "../../styles/Index.module.scss";
+
+.container{
+  width: 95%;
+  margin: 2.5%;
+}
+
+.title{
+  width: 100%;
+  font-size: 16px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.info{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction:row;
+  flex-wrap: wrap;
+}
+
+.cards{
+  width: 18%;
+  background-color: #fff;
+  border-radius: 25px;
+
+  border-radius: 25px;
+  box-shadow: 3px 3px 7px #c8c8c8;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  
+}
+
+.cards:not(:nth-child(5)){
+  margin-right: 2%;
+}
+
+.incomes{
+  color: $color1;
+}
+
+.expense{
+  color: $color6;
+
+}
+
+.balance{
+  color: $color7;
+}
+
+.forecast{
+  color: $color8;
+
+}
+
+
+.titleCard{
+  font-size: 12px;
+  width: 100%;
+  color: #000;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+.data {
+  width: 70%;
+}
+
+.value{
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.icon{
+  height: 20px;
+  width: 20px;
+  margin-right: 30px;
+}
+
+.hr{
+  width: 100%;
+  color: rgba($color: $color8, $alpha: 0.3);
+  margin-top: 30px;
+  border-style:dashed;
+}
+
+.icon__action {
+  color:  #7e7e7e;
+  height: 12px;
+  width: 12px;
+  margin-right: 4px;
+  margin-left: 16px;
+}

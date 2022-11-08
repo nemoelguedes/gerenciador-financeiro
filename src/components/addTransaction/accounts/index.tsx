@@ -1,14 +1,22 @@
 import style from "../../../styles/Components.module.scss";
-import accounts from "../../../data/accounts.json";
 import IAccount from "../../../interfaces/account";
 import classNames from "classnames";
+import { useState } from "react";
 
 export default function Accounts(props: any) {
+
+  const [updateTransactions, setUpdateTransactions] = useState(false);
+
+  window.addEventListener('storage', () => {
+    setUpdateTransactions(!updateTransactions);
+  });
+
+  const accounts = JSON.parse(localStorage.getItem("accounts") || '{}');
 
   return (
     <div className={style.col100}>
       <label className={style.labelAdd} >Conta</label>
-      {accounts.map((r: IAccount, index) => (
+      {accounts.map((r: IAccount, index:any) => (
         <button key={index} className={classNames({
           [style.button]: true,
           [props.account === r.id ? style.selected : ""]: true,
