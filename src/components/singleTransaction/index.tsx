@@ -101,8 +101,6 @@ export default function SingleTransaction(props: any) {
         <FaTrashAlt onClick={removeFromLocalStorage} className={style.icon__action} />
       </div>
 
-
-
     </div>
   );
 }

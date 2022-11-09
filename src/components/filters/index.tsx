@@ -1,8 +1,6 @@
 import style from "./Filters.module.scss";
 import categories from "../../data/categories.json";
 import accounts from "../../data/accounts.json";
-import { FaFilter } from "react-icons/fa";
-import { useState } from "react";
 
 
 export default function FiltersTransactions(props: any) {

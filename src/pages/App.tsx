@@ -6,12 +6,10 @@ import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import style from "./App.module.scss";
 import Home from "./home";
-import Orcamento from "./orcamento";
 import DashboardInicial from "./dashboard";
 import Contas from "./contas";
 import { FaChartBar, FaHome, FaList, FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 import { RiBankFill } from "react-icons/ri";
-import { MdAutoGraph } from "react-icons/md";
 import classNames from "classnames";
 
 export default function App() {
@@ -94,16 +92,6 @@ export default function App() {
                     </div>
                   </Link>
                 </li>
-                <li>
-                  <Link to="/orcamento">
-                    <MdAutoGraph className={style.nav__icon} />
-                    <div className={classNames({
-                      [navState === true ? style["nav__title--close"] : style.nav__title]: true,
-                    })}>
-                      Orçamento
-                    </div>
-                  </Link>
-                </li>
               </ul>
             </nav>
           </div>
@@ -115,7 +103,6 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/transacoes" element={<Transactions />} />
-              <Route path="/orcamento" element={<Orcamento />} />
               <Route path="/dashboard" element={<DashboardInicial />} />
               <Route path="/contas" element={<Contas />} />
             </Routes>

@@ -17,10 +17,58 @@
     "amount": "325,35",
     "category": "rendimento",
     "account": "dinheiro",
+    "paid": "true",
+    "id": "income2",
+    "reccurence": "não",
+    "reccurenceValue": "1",
+    "transaction": "incomes"
+  },
+  {
+    "date": "2022-11-12",
+    "description": "Renda Extra",
+    "amount": "789,35",
+    "category": "salário",
+    "account": "dinheiro",
     "paid": "false",
     "id": "income2",
     "reccurence": "não",
     "reccurenceValue": "1",
     "transaction": "incomes"
+  },
+  {
+    "date": "2022-11-17",
+    "description": "Mercado",
+    "amount": "630,65",
+    "category": "mercado",
+    "account": "bankx",
+    "paid": "true",
+    "id": "expense1",
+    "reccurence": "parcelado",
+    "reccurenceValue": "2/2",
+    "transaction": "expense"
+  },
+  {
+    "date": "2022-11-12",
+    "description": "Gasolina",
+    "amount": "140,00",
+    "category": "transporte",
+    "account": "bankx",
+    "paid": "true",
+    "id": "expense1",
+    "reccurence": "parcelado",
+    "reccurenceValue": "2/2",
+    "transaction": "expense"
+  },
+  {
+    "date": "2022-11-12",
+    "description": "Passagem",
+    "amount": "890,00",
+    "category": "viagem",
+    "account": "bankx",
+    "paid": "true",
+    "id": "expense1",
+    "reccurence": "parcelado",
+    "reccurenceValue": "2/2",
+    "transaction": "expense"
   }
 ]

@@ -206,7 +206,7 @@ export default function Transactions() {
           </div>
         </div>
 
-        <div className={style.buttonAddFilters}><AddTransaction /></div>
+        <div className={style.buttonAddTransaction}><AddTransaction /></div>
         <div className={style.filters}><div className={style.addFilters__div}>
           
             {statePopUps.filters === true
