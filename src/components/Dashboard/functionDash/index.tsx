@@ -1,6 +1,11 @@
 import Dashboard from "..";
+import dataTransactions from "../../../data/transactions.json";
 
 export default function CalculateDash(props: any) {
+
+  if (!localStorage.transactions) {
+    localStorage.transactions = JSON.stringify(dataTransactions);
+  }
 
   const transactions = JSON.parse(localStorage.getItem("transactions") || '{}');
 

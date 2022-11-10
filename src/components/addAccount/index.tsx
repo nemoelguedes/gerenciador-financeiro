@@ -5,6 +5,7 @@ import styleComponent from "../../styles/Components.module.scss";
 import { FaPlusCircle } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { v4 as uuidv4 } from "uuid";
+import dataAccounts from "../../data/accounts.json";
 
 const transactionState = {
   account: "",
@@ -54,6 +55,10 @@ export default function AddAccount() {
   const [state, dispatch] = useReducer(reducer, transactionState);
   const [message, dispatchMessage] = useReducer(reducerMessage, initialMessage);
   const [openPopup, setOpenPopup] = useState(false);
+
+  if (!localStorage.accounts) {
+    localStorage.accounts = JSON.stringify(dataAccounts);
+  }
 
   function close(e: any) {
     dispatch({ type: "reset", payload: transactionState });

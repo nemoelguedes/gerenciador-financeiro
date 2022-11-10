@@ -1,8 +1,5 @@
 import Transactions from "pages/transactions";
-import dataAccounts from "../data/accounts.json";
-import dataCategories from "../data/categories.json";
-import dataTransactions from "../data/transactions.json";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import style from "./App.module.scss";
 import DashboardInicial from "./dashboard";
@@ -10,27 +7,25 @@ import Contas from "./contas";
 import { FaChartBar, FaList, FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 import { RiBankFill } from "react-icons/ri";
 import classNames from "classnames";
+import dataAccounts from "../data/accounts.json";
+import dataCategories from "../data/categories.json";
+import dataTransactions from "../data/transactions.json";
 
 export default function App() {
 
   const [navState, setNavState] = useState(true);
 
-  useEffect(() => {
+  if (!localStorage.categories) {
+    localStorage.categories = JSON.stringify(dataCategories);
+  }
 
-    if (!localStorage.categories) {
-      localStorage.categories = JSON.stringify(dataCategories);
-    }
+  if (!localStorage.accounts) {
+    localStorage.accounts = JSON.stringify(dataAccounts);
+  }
 
-    if (!localStorage.accounts) {
-      localStorage.accounts = JSON.stringify(dataAccounts);
-    }
-
-    if (!localStorage.transactions) {
-      localStorage.transactions = JSON.stringify(dataTransactions);
-    }
-  },);
-
-
+  if (!localStorage.transactions) {
+    localStorage.transactions = JSON.stringify(dataTransactions);
+  }
 
   return (
     <>

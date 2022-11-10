@@ -9,6 +9,7 @@ import { IoMdClose } from "react-icons/io";
 import styleFilter from "../../components/filters/Filters.module.scss";
 import EditTransaction from "components/editTransaction";
 import Dashboard from "components/Dashboard";
+import dataTransactions from "../../data/transactions.json";
 
 const today = new Date();
 const year = today.getFullYear();
@@ -97,13 +98,17 @@ export default function Transactions() {
     setUpdateTransactions(!updateTransactions);
   });
 
+  if (!localStorage.transactions) {
+    localStorage.transactions = JSON.stringify(dataTransactions);
+  }
+
   const transaction = JSON.parse(localStorage.getItem("transactions") || '{}');
 
   const transactionFilteredOffDate = transaction.filter(
-      (r: any) => state.paid !== "todos" ? r.paid === state.paid : r).filter(
-        (r: any) => state.category !== "todas" ? r.category === state.category : r).filter(
-          (r: any) => state.account !== "todas" ? r.account === state.account : r).filter(
-            (r: any) => state.transaction !== "todas" ? r.transaction === state.transaction : r);
+    (r: any) => state.paid !== "todos" ? r.paid === state.paid : r).filter(
+      (r: any) => state.category !== "todas" ? r.category === state.category : r).filter(
+        (r: any) => state.account !== "todas" ? r.account === state.account : r).filter(
+          (r: any) => state.transaction !== "todas" ? r.transaction === state.transaction : r);
 
   const transactionFiltered = transactionFilteredOffDate.filter(
     (r: any) => state.initialDate <= r.date && state.finalDate >= r.date);
@@ -121,13 +126,13 @@ export default function Transactions() {
 
   const previousIncomesFilter = transactionFilteredOffDate.filter((r: any) => r.transaction === "incomes").filter(
     (r: any) => r.paid === "true").filter(
-    (r: any) => "0001-01-01" < r.date && state.initialDate > r.date);
+      (r: any) => "0001-01-01" < r.date && state.initialDate > r.date);
   const previousIncomesMap = previousIncomesFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
   const previousIncomesSum = previousIncomesMap.reduce((r: number, m: number) => r + m, 0);
 
   const previousExpenseFilter = transactionFilteredOffDate.filter((r: any) => r.transaction === "expense").filter(
     (r: any) => r.paid === "true").filter(
-    (r: any) => "0001-01-01" < r.date && state.initialDate > r.date);
+      (r: any) => "0001-01-01" < r.date && state.initialDate > r.date);
   const previousExpenseMap = previousExpenseFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
   const previousExpenseSum = previousExpenseMap.reduce((r: number, m: number) => r + m, 0);
 
@@ -135,16 +140,15 @@ export default function Transactions() {
   const previousFixed = previousSum.toFixed(2);
   const previousShow = previousFixed.toString().replace(".", ",");
 
-  console.log("show",previousShow);
 
   // INCOMES
-  
+
   const incomesFilter = sumOfTransactions.filter((r: any) => r.transaction === "incomes").filter(
     (r: any) => r.paid === "true");
   const incomesMap = incomesFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
   const incomesSum = incomesMap.reduce((r: number, m: number) => r + m, 0);
   const incomesFixed = incomesSum.toFixed(2);
-  const incomesShow = incomesFixed.toString().replace(".",",");
+  const incomesShow = incomesFixed.toString().replace(".", ",");
 
   // EXPENSE
 
@@ -153,28 +157,28 @@ export default function Transactions() {
   const expenseMap = expenseFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
   const expenseSum = expenseMap.reduce((r: number, m: number) => r + m, 0);
   const expenseFixed = expenseSum.toFixed(2);
-  const expenseShow = expenseFixed.toString().replace(".",",");
+  const expenseShow = expenseFixed.toString().replace(".", ",");
 
   // BALANCE
 
   const resultsSum = previousSum + incomesSum - expenseSum;
   const resultsFixed = resultsSum.toFixed(2);
-  const resultsShow = resultsFixed.toString().replace(".",",");
+  const resultsShow = resultsFixed.toString().replace(".", ",");
 
-    // FORECAST
+  // FORECAST
 
-    const incomesForecastFilter = sumOfTransactions.filter((r: any) => r.transaction === "incomes");
-    const incomesForecastMap = incomesForecastFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
-    const incomesForecastSum = incomesForecastMap.reduce((r: number, m: number) => r + m, 0);
-  
-    const expenseForecastFilter = sumOfTransactions.filter((r: any) => r.transaction === "expense");
-    const expenseForecastMap = expenseForecastFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
-    const expenseForecastSum = expenseForecastMap.reduce((r: number, m: number) => r + m, 0);
-  
-    const forecastSum = previousSum + incomesForecastSum - expenseForecastSum;
-    const forecastFixed = forecastSum.toFixed(2);
-    const forecastShow = forecastFixed.toString().replace(".",",");
-  
+  const incomesForecastFilter = sumOfTransactions.filter((r: any) => r.transaction === "incomes");
+  const incomesForecastMap = incomesForecastFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
+  const incomesForecastSum = incomesForecastMap.reduce((r: number, m: number) => r + m, 0);
+
+  const expenseForecastFilter = sumOfTransactions.filter((r: any) => r.transaction === "expense");
+  const expenseForecastMap = expenseForecastFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
+  const expenseForecastSum = expenseForecastMap.reduce((r: number, m: number) => r + m, 0);
+
+  const forecastSum = previousSum + incomesForecastSum - expenseForecastSum;
+  const forecastFixed = forecastSum.toFixed(2);
+  const forecastShow = forecastFixed.toString().replace(".", ",");
+
 
   const stylingHeader = {
     "color": "#000",
@@ -182,16 +186,16 @@ export default function Transactions() {
     "fontWeight": "600",
   }
 
-  function closeFilters(e:any){
+  function closeFilters(e: any) {
     dispatchPopUps({ type: "filters", payload: e });
-    dispatch({type:"reset", payload: initialFilters});
+    dispatch({ type: "reset", payload: initialFilters });
 
   }
 
   return (
     <>
 
-      <Dashboard previous={previousShow} incomes={incomesShow} expense={expenseShow} sumResults={resultsShow}  forecastResults={forecastShow} />
+      <Dashboard previous={previousShow} incomes={incomesShow} expense={expenseShow} sumResults={resultsShow} forecastResults={forecastShow} />
 
       {statePopUps.editTransaction === true ? <EditTransaction idEdit={statePopUps.idEdit} handleEditTransaction={(e: any) => dispatchPopUps({ type: "editTransaction", payload: e })} /> : ""}
 
@@ -208,9 +212,9 @@ export default function Transactions() {
 
         <div className={style.buttonAddTransaction}><AddTransaction /></div>
         <div className={style.filters}><div className={style.addFilters__div}>
-          
-            {statePopUps.filters === true
-            ? <button className={style.addFilters__button} type="button"  onClick={closeFilters}><IoMdClose className={style.icon__closeFilters} /> Fechar Filtros </button>
+
+          {statePopUps.filters === true
+            ? <button className={style.addFilters__button} type="button" onClick={closeFilters}><IoMdClose className={style.icon__closeFilters} /> Fechar Filtros </button>
             : <button className={style.addFilters__button} type="button" onClick={(e: any) => dispatchPopUps({ type: "filters", payload: e })}><FaFilter className={style.icon__addFilters} /> Filtros</button>}
         </div>
 

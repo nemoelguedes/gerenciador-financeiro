@@ -1,6 +1,8 @@
 import style from "./Categories.module.scss";
 import { useState } from "react";
 import { PieChart } from 'react-minimal-pie-chart';
+import dataTransactions from "../../data/transactions.json";
+import dataCategories from "../../data/categories.json";
 
 export default function CategoriesDash(props: any) {
 
@@ -9,6 +11,14 @@ export default function CategoriesDash(props: any) {
   window.addEventListener('storage', () => {
     setUpdateTransactions(!updateTransactions);
   });
+
+  if (!localStorage.transactions) {
+    localStorage.transactions = JSON.stringify(dataTransactions);
+  }
+
+  if (!localStorage.categories) {
+    localStorage.categories = JSON.stringify(dataCategories);
+  }
 
   // FILTER EXPENSE CATEGORY
   const categories = JSON.parse(localStorage.getItem("categories") || '{}');
@@ -46,43 +56,6 @@ export default function CategoriesDash(props: any) {
       (r: any) => parseFloat(r.amount.replace(",", "."))).reduce((r: number, m: number) => r + m, 0).toFixed(2).toString().replace(".", ",")
   }]).flat();
   const categoriesNotPaid = categoriesDataNotPaidCreate.filter((r: any) => r.value !== 0);
-
-  console.log(categoriesNotPaid);
-
-
-  // const categoryAmount = paidTransactions.map((r: any) => )
-
-
-
-
-  // const categoryMap = categoryFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
-  // const categorySum = categoryMap.reduce((r: number, m: number) => r + m, 0);
-
-  // const categoryPercentage = categorySum !== 0 ? (categorySum / props.balance) * 100 : 0;
-  // const categoryFinal = categorySum !== 0 ? categoryPercentage.toFixed(0) : 0;
-
-  // const categoryFixed = categorySum.toFixed(2);
-  // const categoryShow = categoryFixed.toString().replace(".", ",");
-
-
-
-
-  // const categoryForecastFilter = categoryFiltered.filter(
-  //   (r: any) => props.initialDate <= r.date && props.finalDate >= r.date);
-  // const categoryForecastMap = categoryForecastFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
-  // const categoryForecastSum = categoryForecastMap.reduce((r: number, m: number) => r + m, 0);
-
-  // const categoryForecastPercentage = categoryForecastSum !== 0 ? (categoryForecastSum / props.forecast) * 100 : 0;
-  // const categoryForecastFinal = categoryForecastSum !== 0 ? categoryForecastPercentage.toFixed(0) : 0;
-
-  // const categoryForecastFixed = categoryForecastSum.toFixed(2);
-  // const categoryForecastShow = categoryForecastFixed.toString().replace(".", ",");
-
-
-
-
-
-  const newDataToPie = categoriesFilter.map((r: any) => [{ title: `${r.category}`, value: 22, color: `${r.color}` },]).flat();
 
   return (
 

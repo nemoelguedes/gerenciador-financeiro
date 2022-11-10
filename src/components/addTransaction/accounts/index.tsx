@@ -2,6 +2,7 @@ import style from "../../../styles/Components.module.scss";
 import IAccount from "../../../interfaces/account";
 import classNames from "classnames";
 import { useState } from "react";
+import dataAccounts from "../../../data/accounts.json";
 
 export default function Accounts(props: any) {
 
@@ -10,6 +11,10 @@ export default function Accounts(props: any) {
   window.addEventListener('storage', () => {
     setUpdateTransactions(!updateTransactions);
   });
+
+  if (!localStorage.accounts) {
+    localStorage.accounts = JSON.stringify(dataAccounts);
+  }
 
   const accounts = JSON.parse(localStorage.getItem("accounts") || '{}');
 

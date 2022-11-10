@@ -3,6 +3,7 @@ import styleComponents from "../../styles/Components.module.scss";
 import classNames from "classnames";
 import { FaArrowUp, FaArrowDown, FaDollarSign, FaChartLine, FaDonate, FaTrashAlt } from "react-icons/fa";
 import { useState } from "react";
+import dataTransactions from "../../data/transactions.json";
 
 
 export default function AccountsShow(props: any) {
@@ -13,6 +14,10 @@ export default function AccountsShow(props: any) {
   window.addEventListener('storage', () => {
     setUpdateTransactions(!updateTransactions);
   });
+
+  if (!localStorage.transactions) {
+    localStorage.transactions = JSON.stringify(dataTransactions);
+  }
 
   const transactions = JSON.parse(localStorage.getItem("transactions") || '{}');
 

@@ -11,6 +11,7 @@ import Paid from "components/addTransaction/paid";
 import DateAdd from "components/addTransaction/date";
 import Amount from "components/addTransaction/amount";
 import { v4 as uuidv4 } from "uuid";
+import dataTransactions from "../../data/transactions.json";
 
 const today = new Date();
 const year = today.getFullYear();
@@ -116,6 +117,10 @@ export default function AddTransaction() {
   const [state, dispatch] = useReducer(reducer, transactionState);
   const [message, dispatchMessage] = useReducer(reducerMessage, initialMessage);
   const [openPopup, setOpenPopup] = useState(false);
+
+  if (!localStorage.transactions) {
+    localStorage.transactions = JSON.stringify(dataTransactions);
+  }
 
   // TYPE OF TRANSACTION
   function selectTransaction(e: any) {

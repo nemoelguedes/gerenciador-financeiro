@@ -3,9 +3,8 @@ import style from "./Dashboardinicial.module.scss";
 import styleFilter from "../../components/filters/Filters.module.scss";
 import { FaArrowDown, FaArrowUp, FaDollarSign } from "react-icons/fa";
 import classNames from "classnames";
-import SinglePlanning from "components/singlePlanning";
-import styleDash from "../../components/singlePlanning/Singleplanning.module.scss";
 import CategoriesDash from "components/categories";
+import dataTransactions from "../../data/transactions.json";
 
 const today = new Date();
 const year = today.getFullYear();
@@ -49,6 +48,10 @@ export default function DashboardInicial() {
   window.addEventListener('storage', () => {
     setUpdateTransactions(!updateTransactions);
   });
+
+  if (!localStorage.transactions) {
+    localStorage.transactions = JSON.stringify(dataTransactions);
+  }
 
   const transaction = JSON.parse(localStorage.getItem("transactions") || '{}');
 
@@ -120,11 +123,6 @@ export default function DashboardInicial() {
   const forecastSum = previousSum + incomesForecastSum - expenseForecastSum;
   const forecastFixed = forecastSum.toFixed(2);
   const forecastShow = forecastFixed.toString().replace(".", ",");
-
-  const categories = JSON.parse(localStorage.getItem("categories") || '{}');
-
-  const categoriesFilter = categories.filter(
-    (r: any) => r.transaction === "expense");
 
   return (
     <>

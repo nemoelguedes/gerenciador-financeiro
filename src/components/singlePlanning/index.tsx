@@ -1,5 +1,6 @@
 import { useState } from "react";
 import style from "./Singleplanning.module.scss";
+import dataTransactions from "../../data/transactions.json";
 
 export default function SinglePlanning(props: any) {
 
@@ -9,6 +10,10 @@ export default function SinglePlanning(props: any) {
   window.addEventListener('storage', () => {
     setUpdateTransactions(!updateTransactions);
   });
+
+  if (!localStorage.transactions) {
+    localStorage.transactions = JSON.stringify(dataTransactions);
+  }
 
   const transactions = JSON.parse(localStorage.getItem("transactions") || '{}');
 
@@ -25,9 +30,6 @@ export default function SinglePlanning(props: any) {
   const categoryFixed = categorySum.toFixed(2);
   const categoryShow = categoryFixed.toString().replace(".", ",");
 
-
-
-
   const categoryForecastFilter = categoryFiltered.filter(
     (r: any) => props.initialDate <= r.date && props.finalDate >= r.date);
   const categoryForecastMap = categoryForecastFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
@@ -38,9 +40,6 @@ export default function SinglePlanning(props: any) {
 
   const categoryForecastFixed = categoryForecastSum.toFixed(2);
   const categoryForecastShow = categoryForecastFixed.toString().replace(".", ",");
-
-
-
 
   return (
     <> 

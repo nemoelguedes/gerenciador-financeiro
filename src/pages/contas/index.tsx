@@ -4,6 +4,7 @@ import styleFilter from "../../components/filters/Filters.module.scss";
 import styleTransaction from "../../pages/transactions/Transaction.module.scss";
 import CalculateDash from "components/Dashboard/functionDash";
 import AddAccount from "components/addAccount";
+import dataAccounts from "../../data/accounts.json";
 
 const today = new Date();
 const year = today.getFullYear();
@@ -61,6 +62,10 @@ export default function Contas() {
     setUpdateTransactions(!updateTransactions);
   });
 
+  if (!localStorage.accounts) {
+    localStorage.accounts = JSON.stringify(dataAccounts);
+  }
+
   const accounts = JSON.parse(localStorage.getItem("accounts") || '{}');
 
   return (
@@ -82,7 +87,7 @@ export default function Contas() {
       </div>
 
 
-      {accounts.map((r: any, index:any) => <AccountsShow key={index} account={r.account} id={r.id} initialDate={state.initialDate} finalDate={state.finalDate} />)}
+      {accounts.map((r: any, index: any) => <AccountsShow key={index} account={r.account} id={r.id} initialDate={state.initialDate} finalDate={state.finalDate} />)}
     </>
   );
 }
