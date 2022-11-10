@@ -5,6 +5,7 @@ import { FaArrowDown, FaArrowUp, FaDollarSign } from "react-icons/fa";
 import classNames from "classnames";
 import SinglePlanning from "components/singlePlanning";
 import styleDash from "../../components/singlePlanning/Singleplanning.module.scss";
+import CategoriesDash from "components/categories";
 
 const today = new Date();
 const year = today.getFullYear();
@@ -223,32 +224,18 @@ export default function DashboardInicial() {
 
 
       </section>
+
       <section className={style.section__categories}>
 
-        <div className={styleDash.container}>
-          <div className={styleDash.img}>
-          </div>
-          <div className={styleDash.category}>
-            CATEGORIA
-          </div>
+        <div className={style.bar}>
 
-          <div className={styleDash.graphic}>
-            <div className={styleDash.legend}>% REALIZADOS</div>
-          </div>
-
-          <div className={styleDash.graphic}>
-            <div className={styleDash.legend}>% PREVISTO</div>
-          </div>
-
+        <CategoriesDash balance={expenseSum} forecast={expensePreSum} initialDate={state.initialDate} finalDate={state.finalDate} />
 
         </div>
-        <hr className={styleDash.hr}></hr>
-
-        {categoriesFilter.map((r: any, index: any) => <SinglePlanning key={index} icon={r.icon} color={r.color} category={r.category} balance={expenseSum} forecast={expensePreSum} initialDate={state.initialDate} finalDate={state.finalDate} />)}
-
-
+ 
 
       </section>
+
     </>
   );
 }

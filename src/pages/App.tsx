@@ -5,10 +5,9 @@ import dataTransactions from "../data/transactions.json";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import style from "./App.module.scss";
-import Home from "./home";
 import DashboardInicial from "./dashboard";
 import Contas from "./contas";
-import { FaChartBar, FaHome, FaList, FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
+import { FaChartBar, FaList, FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 import { RiBankFill } from "react-icons/ri";
 import classNames from "classnames";
 
@@ -52,18 +51,17 @@ export default function App() {
               })} onClick={() => setNavState(!navState)} />}
             <nav>
               <ul>
+
+                <Link to="/">
+                  <div className={style.divlogo}>
+                    <img src="assets/finans.svg" className={style.logo} alt="logo" />
+                  </div></Link>
+
+
+
+
                 <li>
                   <Link to="/">
-                    <FaHome className={style.nav__icon} />
-                    <div className={classNames({
-                      [navState === true ? style["nav__title--close"] : style.nav__title]: true,
-                    })}>
-                      Início
-                    </div>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/dashboard">
                     <FaChartBar className={style.nav__icon} />
                     <div className={classNames({
                       [navState === true ? style["nav__title--close"] : style.nav__title]: true,
@@ -97,13 +95,12 @@ export default function App() {
           </div>
 
           <div className={classNames({
-            [style.container__pages] : true,
+            [style.container__pages]: true,
             [navState === true ? style["container__pages--statea"] : style["container__pages--stateb"]]: true,
           })}>
             <Routes>
-              <Route path="/" element={<Home />} />
               <Route path="/transacoes" element={<Transactions />} />
-              <Route path="/dashboard" element={<DashboardInicial />} />
+              <Route path="/" element={<DashboardInicial />} />
               <Route path="/contas" element={<Contas />} />
             </Routes>
           </div>

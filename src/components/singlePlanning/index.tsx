@@ -39,7 +39,6 @@ export default function SinglePlanning(props: any) {
   const categoryForecastFixed = categoryForecastSum.toFixed(2);
   const categoryForecastShow = categoryForecastFixed.toString().replace(".", ",");
 
-  console.log(props.color);
 
 
 
@@ -53,7 +52,7 @@ export default function SinglePlanning(props: any) {
       </div>
 
       <div className={style.graphic}>
-        <div className={style.bar}>
+        <div className={style.bar} style={{borderColor: `${props.color}`}}>
           <div className={style.percentage} style={{width: `${categoryFinal}%`, backgroundColor: `${props.color}`}}></div>
         </div>
         <div className={style.legend}>{"R$ " + categoryShow + " - " + categoryFinal + "%"}</div>
