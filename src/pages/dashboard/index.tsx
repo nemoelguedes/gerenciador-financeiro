@@ -229,10 +229,11 @@ export default function DashboardInicial() {
 
         <CategoriesDash balance={expenseSum} forecast={expensePreSum} initialDate={state.initialDate} finalDate={state.finalDate} />
 
-        </div>
- 
+        </div> 
 
       </section>
+
+      <hr className={style.hr}></hr>
 
     </>
   );

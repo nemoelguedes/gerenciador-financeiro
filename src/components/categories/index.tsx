@@ -89,10 +89,6 @@ export default function CategoriesDash(props: any) {
 
       </div>
 
-
-
-
-
     </section >
 
   );

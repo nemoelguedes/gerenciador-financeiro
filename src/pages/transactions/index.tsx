@@ -9,6 +9,8 @@ import { IoMdClose } from "react-icons/io";
 import styleFilter from "../../components/filters/Filters.module.scss";
 import EditTransaction from "components/editTransaction";
 import Dashboard from "components/Dashboard";
+import dataAccounts from "../../data/accounts.json";
+import dataCategories from "../../data/categories.json";
 import dataTransactions from "../../data/transactions.json";
 
 const today = new Date();
@@ -98,10 +100,18 @@ export default function Transactions() {
     setUpdateTransactions(!updateTransactions);
   });
 
+  if (!localStorage.categories) {
+    localStorage.categories = JSON.stringify(dataCategories);
+  }
+
+  if (!localStorage.accounts) {
+    localStorage.accounts = JSON.stringify(dataAccounts);
+  }
+
   if (!localStorage.transactions) {
     localStorage.transactions = JSON.stringify(dataTransactions);
   }
-
+  
   const transaction = JSON.parse(localStorage.getItem("transactions") || '{}');
 
   const transactionFilteredOffDate = transaction.filter(

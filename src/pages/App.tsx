@@ -10,6 +10,7 @@ import classNames from "classnames";
 import dataAccounts from "../data/accounts.json";
 import dataCategories from "../data/categories.json";
 import dataTransactions from "../data/transactions.json";
+import ScrollToTop from "components/scrolltotop";
 
 export default function App() {
 
@@ -49,7 +50,7 @@ export default function App() {
 
                 <Link to="/">
                   <div className={style.divlogo}>
-                    <img src="assets/finans.svg" className={style.logo} alt="logo" />
+                    <img src="assets/finans.png" className={style.logo} alt="logo" />
                   </div></Link>
 
 
@@ -94,9 +95,9 @@ export default function App() {
             [navState === true ? style["container__pages--statea"] : style["container__pages--stateb"]]: true,
           })}>
             <Routes>
-              <Route path="/transacoes" element={<Transactions />} />
-              <Route path="/" element={<DashboardInicial />} />
-              <Route path="/contas" element={<Contas />} />
+              <Route path="/transacoes" element={<><ScrollToTop /><Transactions /></>} />
+              <Route path="/" element={<><ScrollToTop /><DashboardInicial /></>} />
+              <Route path="/contas" element={<><ScrollToTop /><Contas /></>} />
             </Routes>
           </div>
         </section>
