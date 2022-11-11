@@ -81,7 +81,7 @@ export default function AccountsShow(props: any) {
   const expenseForecastMap = expenseForecastFilter.map((r: any) => parseFloat(r.amount.replace(",", ".")));
   const expenseForecastSum = expenseForecastMap.reduce((r: number, m: number) => r + m, 0);
 
-  const forecastSum = incomesForecastSum - expenseForecastSum;
+  const forecastSum = previousSum + incomesForecastSum - expenseForecastSum;
   const forecastFixed = forecastSum.toFixed(2);
   const forecastShow = forecastFixed.toString().replace(".", ",");
 

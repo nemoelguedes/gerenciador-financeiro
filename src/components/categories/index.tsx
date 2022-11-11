@@ -82,7 +82,7 @@ export default function CategoriesDash(props: any) {
           <PieChart data={categoriesNotPaid} lineWidth={40} labelPosition={80} label={({ dataEntry }) => `${Math.round(dataEntry.percentage)} %`} labelStyle={{ fontSize: "5px", fill: "#ffffff"}} animate paddingAngle={1}/>
 
           <div className={style.legend}>
-            {categoriesNotPaid.map((r: any) => <div className={style.legend__category}><div className={style.legend__color} style={{ backgroundColor: `${r.color}` }}></div>{r.title} - {r.price}</div>)}
+            {categoriesNotPaid.map((r: any, index:any) => <div key={index} className={style.legend__category}><div className={style.legend__color} style={{ backgroundColor: `${r.color}` }}></div>{r.title} - {r.price}</div>)}
           </div>
         
         </div>

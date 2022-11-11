@@ -4,13 +4,14 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import style from "./App.module.scss";
 import DashboardInicial from "./dashboard";
 import Contas from "./contas";
-import { FaChartBar, FaList, FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
+import { FaChartBar, FaList, FaArrowAltCircleRight, FaArrowAltCircleLeft, FaRegSave } from "react-icons/fa";
 import { RiBankFill } from "react-icons/ri";
 import classNames from "classnames";
 import dataAccounts from "../data/accounts.json";
 import dataCategories from "../data/categories.json";
 import dataTransactions from "../data/transactions.json";
 import ScrollToTop from "components/scrolltotop";
+import BackupData from "./backup";
 
 export default function App() {
 
@@ -86,6 +87,16 @@ export default function App() {
                     </div>
                   </Link>
                 </li>
+                <li>
+                  <Link to="/backup">
+                    <FaRegSave className={style.nav__icon} />
+                    <div className={classNames({
+                      [navState === true ? style["nav__title--close"] : style.nav__title]: true,
+                    })}>
+                      Backup
+                    </div>
+                  </Link>
+                </li>
               </ul>
             </nav>
           </div>
@@ -98,6 +109,7 @@ export default function App() {
               <Route path="/transacoes" element={<><ScrollToTop /><Transactions /></>} />
               <Route path="/" element={<><ScrollToTop /><DashboardInicial /></>} />
               <Route path="/contas" element={<><ScrollToTop /><Contas /></>} />
+              <Route path="/backup" element={<><ScrollToTop /><BackupData /></>} />
             </Routes>
           </div>
         </section>

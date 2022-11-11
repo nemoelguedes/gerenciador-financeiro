@@ -25,6 +25,7 @@ export default function SingleTransaction(props: any) {
   }
 
   function editTransaction() {
+    window.scrollTo(0, 0);
     props.handleIdEdit(props.id);
     props.handleEditTransaction(true);
   }
